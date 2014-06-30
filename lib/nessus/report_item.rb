@@ -29,9 +29,16 @@ module Nessus
         :exploit_framework_canvas, :exploit_framework_metasploit,
         :exploit_framework_core,
         # multiple tags
-        :bid_entries, :cve_entries, :xref_entries
+        :bid_entries, :cve_entries, :see_also_entries, :xref_entries
         ]
       
+    end
+
+    # This allows external callers (and specs) to check for implemented
+    # properties
+    def respond_to?(method, include_private=false)
+      return true if supported_tags.include?(method)
+      super
     end
 
     # This method is invoked by Ruby when a method that is not defined in this
@@ -81,6 +88,7 @@ module Nessus
       translations_table = {
         :bid_entries => 'bid',
         :cve_entries => 'cve',
+        :see_also_entries => 'see_also',
         :xref_entries  => 'xref'
       }
       method_name = translations_table.fetch(method, nil)

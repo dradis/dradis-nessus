@@ -17,14 +17,12 @@ module Nessus
     # node.
     def supported_tags
       [
+        # attributes
+        :name,
+        # simple tags
         :ip, :fqdn, :operating_system, :mac_address, :netbios_name,
         :scan_start_time, :scan_stop_time
       ]
-    end
-
-    # The name of this host, given as attribute to the ReportHost element
-    def name
-      @xml.attributes['name'].value
     end
 
     # Each of the entries associated with this host. Returns an array of
@@ -47,7 +45,13 @@ module Nessus
         super
         return
       end
-      
+
+      # first we try the attributes: name
+      translations_table = {}
+      method_name = translations_table.fetch(method, method.to_s)
+      return @xml.attributes[method_name].value if @xml.attributes.key?(method_name)
+
+
       # translation of Host properties
       translations_table = {
         :ip => 'host-ip',
