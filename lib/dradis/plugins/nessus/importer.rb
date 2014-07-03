@@ -23,7 +23,7 @@ module Dradis
           # This holds a collection of issues by their nessus pluginID. We first
           # lookup the Issues already in the report and then we keep adding new ones
           # that appear in the uploaded file
-          issues = Issue.all_issues_by_field('PluginID')
+          issues = content_service.all_issues_by_field('PluginID')
 
           # This will be filled in by the Processor for each item in the report
           host_note_text = nil
