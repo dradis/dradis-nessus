@@ -1,3 +1,5 @@
+require 'dradis-plugins'
+
 # Require engine
 require 'dradis/plugins/nessus'
 
