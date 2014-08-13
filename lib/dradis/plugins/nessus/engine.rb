@@ -5,14 +5,12 @@ module Dradis
         isolate_namespace Dradis::Plugins::Nessus
 
         include ::Dradis::Plugins::Base
+        description 'Processes Nessus XML v2 format (.nessus)'
         provides :upload
 
-        # plugin_info provides: :upload,
-        #   description: 'Nessus output (.nessus) file upload',
-        #   expects: 'Nessus XML (v2) format'
-        # NAME = "Nessus output (.nessus) file upload"
-        # EXPECTS = "Nessus XML (V2) format."
-
+        #     generators do
+        #       require "path/to/my_railtie_generator"
+        #     end
 
         # Configuring the gem
         # class Configuration < Core::Configurator
