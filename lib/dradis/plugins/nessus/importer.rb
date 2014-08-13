@@ -43,7 +43,7 @@ module Dradis
               host_label = xml_host.attributes['name'].value
               host_label += " (#{xml_host.attributes['fqdn'].value})" if xml_host.attributes['fqdn']
 
-              host_node = content_service.create_node(label: host_label, type_id: Node::Types::HOST)
+              host_node = content_service.create_node(label: host_label, type: :host)
               logger.info{ "\tHost: #{host_label}" }
 
               host_note_text = template_service.process_template(template: 'report_host', data: xml_host)
