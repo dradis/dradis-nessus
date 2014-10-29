@@ -16,4 +16,8 @@ gemspec
 # To use debugger
 # gem 'debugger'
 
-# gem 'dradis-plugins', github: 'dradis/dradis-plugins'
+if Dir.exists?('../dradis-plugins')
+  gem 'dradis-plugins', path: '../dradis-plugins'
+else
+  gem 'dradis-plugins', github: 'dradis/dradis-plugins'
+end
