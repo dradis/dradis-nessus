@@ -1,6 +1,6 @@
 # Nessus plugin for Dradis
 
-[![Build Status](https://secure.travis-ci.org/dradis/dradis-nessus.png?branch=master)](http://travis-ci.org/dradis/dradis-nessus)
+[![Build Status](https://secure.travis-ci.org/dradis/dradis-nessus.png?branch=master)](http://travis-ci.org/dradis/dradis-nessus) [![Code Climate](https://codeclimate.com/github/dradis/dradis-nessus.png)](https://codeclimate.com/github/dradis/dradis-nessus.png)
 
 The Nessus upload plugin will enable user to upload Nessus output files in the nessus client format (.nessus) to create a structure of nodes/notes that contain the same information about the hosts/ports/services as the original file.
 
