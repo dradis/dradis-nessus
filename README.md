@@ -1,14 +1,14 @@
-# Nessus plugin for Dradis
+# Nessus add-on for Dradis
 
 [![Build Status](https://secure.travis-ci.org/dradis/dradis-nessus.png?branch=master)](http://travis-ci.org/dradis/dradis-nessus) [![Code Climate](https://codeclimate.com/github/dradis/dradis-nessus.png)](https://codeclimate.com/github/dradis/dradis-nessus.png)
 
-The Nessus upload plugin will enable user to upload Nessus output files in the nessus client format (.nessus) to create a structure of nodes/notes that contain the same information about the hosts/ports/services as the original file.
+The Nessus upload add-on will enable user to upload Nessus output files in the nessus client format (.nessus) to create a structure of nodes/notes that contain the same information about the hosts/ports/services as the original file.
 
 The parser only supports version 2 of nessus xml format. Other formats (nbe, nsr) are not supported at the moment.
 
 Also, the xml parser only extracts the results of a scan. It is not able to parse the scan policy itself which is also part of the xml file.
 
-The plugin requires Dradis 3.0 or higher.
+The add-on requires Dradis 3.0 or higher.
 
 
 ## More information

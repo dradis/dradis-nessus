@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.platform      = Gem::Platform::RUBY
   spec.name = 'dradis-nessus'
   spec.version = version
-  spec.summary = 'Nessus upload plugin for the Dradis Framework.'
-  spec.description = 'This plugin allows you to upload and parse output produced from Tenable\'s Nessus Scanner into Dradis.'
+  spec.summary = 'Nessus upload add-on for the Dradis Framework.'
+  spec.description = 'This add-on allows you to upload and parse output produced from Tenable\'s Nessus Scanner into Dradis.'
 
   spec.license = 'GPL-2'
 
