@@ -62,14 +62,7 @@ module Dradis::Plugins::Nessus
             port_info += xml_report_item.attributes['port'].value
 
             logger.info{ "\t\t\t => Adding reference to this host" }
-            evidence_content = "\n#[Port]#\n#{port_info}\n\n"
-            evidence_content << "\n#[Output]#\nbc.. "
-            if (plugin_output = xml_report_item.xpath('./plugin_output/text()')[0])
-              evidence_content << plugin_output.content
-            else
-              evidence_content << 'N/A'
-            end
-            evidence_content << "\n\n"
+            evidence_content = template_service.process_template(template: 'evidence', data: xml_report_item)
 
             content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
           end #/ReportItem
