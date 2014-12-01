@@ -6,3 +6,4 @@ Gemfile.lock
 
 # Gem artifacts
 /pkg/
+/spec/internal/
