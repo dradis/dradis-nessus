@@ -11,7 +11,7 @@ class NessusTasks < Thor
 
     unless File.exists?(file_path)
       $stderr.puts "** the file [#{file_path}] does not exist"
-      exit -1
+      exit(-1)
     end
 
     detect_and_set_project_scope
