@@ -1,5 +1,6 @@
 class NessusTasks < Thor
-include Core::Pro::ProjectScopedTask
+  include Core::Pro::ProjectScopedTask if defined?(::Core::Pro)
+
   namespace "dradis:plugins:nessus"
 
   desc "upload FILE", "upload Nessus v2 results (.nessus file)"
@@ -14,11 +15,10 @@ include Core::Pro::ProjectScopedTask
       exit -1
     end
 
-detect_and_set_project_scope
-
     content_service = nil
     template_service = nil
     if defined?(Dradis::Pro)
+      detect_and_set_project_scope
       content_service = Dradis::Pro::Plugins::ContentService.new(plugin: Dradis::Plugins::Nessus)
       template_service = Dradis::Pro::Plugins::TemplateService.new(plugin: Dradis::Plugins::Nessus)
     else
