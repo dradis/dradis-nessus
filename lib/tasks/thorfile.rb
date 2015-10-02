@@ -12,11 +12,12 @@ class NessusTasks < Thor
 
     unless File.exists?(file_path)
       $stderr.puts "** the file [#{file_path}] does not exist"
-      exit -1
+      exit(-1)
     end
 
     content_service = nil
     template_service = nil
+
     if defined?(Dradis::Pro)
       detect_and_set_project_scope
       content_service = Dradis::Pro::Plugins::ContentService.new(plugin: Dradis::Plugins::Nessus)
