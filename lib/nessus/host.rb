@@ -19,6 +19,7 @@ module Nessus
       [
         # attributes
         :name,
+
         # simple tags
         :ip, :fqdn, :operating_system, :mac_address, :netbios_name,
         :scan_start_time, :scan_stop_time
@@ -61,18 +62,17 @@ module Nessus
 
       # translation of Host properties
       translations_table = {
-        :ip => 'host-ip',
-        :fqdn => 'host-fqdn',
-        :operating_system => 'operating-system',
-        :mac_address => 'mac-address',
-        :netbios_name => 'netbios-name',
-        :scan_start_time => 'HOST_START',
-        :scan_stop_time => 'HOST_END'
+        ip:               'host-ip',
+        fqdn:             'host-fqdn',
+        operating_system: 'operating-system',
+        mac_address:      'mac-address',
+        netbios_name:     'netbios-name',
+        scan_start_time:  'HOST_START',
+        scan_stop_time:   'HOST_END'
       }
       method_name = translations_table.fetch(method, method.to_s)
 
-      property = @xml.xpath("./HostProperties/tag[@name='#{method_name}']").first
-      if property
+      if property = @xml.at_xpath("./HostProperties/tag[@name='#{method_name}']")
         return property.text
       else
         return nil
