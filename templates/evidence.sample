@@ -1,4 +1,5 @@
 <ReportItem
+  xmlns:cm="http://www.nessus.org/cm"
   port="80"
   svc_name="www"
   protocol="tcp"
