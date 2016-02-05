@@ -29,9 +29,11 @@ module Nessus
         :exploit_framework_canvas, :exploit_framework_metasploit,
         :exploit_framework_core,
         # multiple tags
-        :bid_entries, :cve_entries, :see_also_entries, :xref_entries
-        ]
-      
+        :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
+        # compliance tags
+        :cm_actual_value, :cm_audit_file, :cm_check_id, :cm_check_name, :cm_info,
+        :cm_policy_value, :cm_reference, :cm_result, :cm_see_also, :cm_solution
+      ]
     end
 
     # This allows external callers (and specs) to check for implemented
@@ -83,6 +85,18 @@ module Nessus
       if tag
         return tag.text
       end
+
+      # then the custom XML tags (cm: namespace)
+      if method_name.starts_with?('cm_')
+        method_name = method_name.sub(/cm_/, 'cm:compliance-').gsub(/_/, '-')
+        cm_value = @xml.at_xpath("./#{method_name}")
+        if cm_value
+          return cm_value.text
+        else
+          return nil
+        end
+      end
+
 
       # finally the enumerations: bid_entries, cve_entries, xref_entries
       translations_table = {
