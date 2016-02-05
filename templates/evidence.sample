@@ -38,4 +38,15 @@ If safe checks are enabled, this may be a false positive since it is based on th
   <xref>OSVDB:838</xref>
   <plugin_version>$Revision: 1.45 $</plugin_version>
   <plugin_output>Fake output (for Plugin Manager testing purposes)</plugin_output>
+
+  <cm:compliance-actual-value>0</cm:compliance-actual-value>
+  <cm:compliance-audit-file>CIS_MS_Windows_8_Level_1_v1.0.0.audit</cm:compliance-audit-file>
+  <cm:compliance-check-id>1aca1416734d72f4352467605412ee96</cm:compliance-check-id>
+  <cm:compliance-check-name>1.1.1.1 Set &apos;Account lockout threshold&apos; to &apos;5 invalid logon attempt(s)&apos;</cm:compliance-check-name>
+  <cm:compliance-info>This policy setting determines the number of failed logon attempts before a lock occurs.</cm:compliance-info>
+  <cm:compliance-policy-value>5</cm:compliance-policy-value>
+  <cm:compliance-reference>PCI|8.5.13,CCE|CCE-21671-3,Level|1S,800-53|AC-1</cm:compliance-reference>
+  <cm:compliance-result>FAILED</cm:compliance-result>
+  <cm:compliance-see-also>https://benchmarks.cisecurity.org/tools2/windows/CIS_Microsoft_Windows_8_Benchmark_v1.0.0.pdf</cm:compliance-see-also>
+  <cm:compliance-solution>Make sure &apos;Account lockout threshold&apos; is set to 5 invalid attempts.</cm:compliance-solution>
 </ReportItem>

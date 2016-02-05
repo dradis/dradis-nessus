@@ -1,13 +1,3 @@
-compliance.cm_actual_value
-compliance.cm_audit_file
-compliance.cm_check_id
-compliance.cm_check_name
-compliance.cm_info
-compliance.cm_policy_value
-compliance.cm_reference
-compliance.cm_result
-compliance.cm_see_also
-compliance.cm_solution
 report_item.port
 report_item.svc_name
 report_item.protocol
