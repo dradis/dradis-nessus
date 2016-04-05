@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ReportItem port="80" svc_name="www" protocol="tcp" severity="2" pluginID="68915" pluginName="Apache 2.2.x &lt; 2.2.25 Multiple Vulnerabilities" pluginFamily="Web Servers">
+  <bid>59826</bid>
+  <bid>61129</bid>
+  <cpe>cpe:/a:apache:http_server</cpe>
+  <cve>CVE-2013-1862</cve>
+  <cve>CVE-2013-1896</cve>
+  <cvss_base_score>5.1</cvss_base_score>
+  <cvss_temporal_score>4.4</cvss_temporal_score>
+  <cvss_temporal_vector>CVSS2#E:ND/RL:OF/RC:C</cvss_temporal_vector>
+  <cvss_vector>CVSS2#AV:N/AC:H/Au:N/C:P/I:P/A:P</cvss_vector>
+  <description>According to its banner, the version of Apache 2.2.x running on the remote host is prior to 2.2.25. It is, therefore, potentially affected by the following vulnerabilities :
+
+  - A flaw exists in the 'RewriteLog' function where it     fails to sanitize escape sequences from being written     to log files, making it potentially vulnerable to     arbitrary command execution. (CVE-2013-1862)
+
+  - A denial of service vulnerability exists relating to     the 'mod_dav' module as it relates to MERGE requests.
+    (CVE-2013-1896)
+
+Note that Nessus did not actually test for these issues, but instead has relied on the version in the server's banner.</description>
+  <exploit_available>false</exploit_available>
+  <exploitability_ease>No known exploits are available</exploitability_ease>
+  <fname>apache_2_2_25.nasl</fname>
+  <osvdb>93366</osvdb>
+  <osvdb>95498</osvdb>
+  <patch_publication_date>2013/07/10</patch_publication_date>
+  <plugin_modification_date>2015/10/19</plugin_modification_date>
+  <plugin_name>Apache 2.2.x &lt; 2.2.25 Multiple Vulnerabilities</plugin_name>
+  <plugin_publication_date>2013/07/16</plugin_publication_date>
+  <plugin_type>remote</plugin_type>
+  <risk_factor>Medium</risk_factor>
+  <script_version>$Revision: 1.14 $</script_version>
+  <see_also>https://archive.apache.org/dist/httpd/CHANGES_2.2.25
+http://httpd.apache.org/security/vulnerabilities_22.html
+http://www.nessus.org/u?f050c342</see_also>
+  <solution>Upgrade to Apache version 2.2.25 or later. Alternatively, ensure that the affected modules are not in use.</solution>
+  <synopsis>The remote web server may be affected by multiple cross-site scripting vulnerabilities.</synopsis>
+  <vuln_publication_date>2013/05/13</vuln_publication_date>
+  <xref>OSVDB:93366</xref>
+  <xref>OSVDB:95498</xref>
+  <plugin_output>
+  Version source    : Server: Apache/2.2.20
+  Installed version : 2.2.20
+  Fixed version     : 2.2.25
+</plugin_output>
+</ReportItem>
