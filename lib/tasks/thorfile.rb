@@ -18,13 +18,12 @@ class NessusTasks < Thor
     content_service = nil
     template_service = nil
 
+    template_service = Dradis::Plugins::TemplateService.new(plugin: Dradis::Plugins::Nessus)
     if defined?(Dradis::Pro)
       detect_and_set_project_scope
       content_service = Dradis::Pro::Plugins::ContentService.new(plugin: Dradis::Plugins::Nessus)
-      template_service = Dradis::Pro::Plugins::TemplateService.new(plugin: Dradis::Plugins::Nessus)
     else
       content_service = Dradis::Plugins::ContentService.new(plugin: Dradis::Plugins::Nessus)
-      template_service = Dradis::Plugins::TemplateService.new(plugin: Dradis::Plugins::Nessus)
     end
 
     importer = Dradis::Plugins::Nessus::Importer.new(
