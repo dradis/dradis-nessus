@@ -16,4 +16,12 @@ describe Dradis::Plugins::Nessus::FieldProcessor do
       end
     end
   end
+
+  it "Recasted severity values appear in the Evidence" do
+    doc = Nokogiri::XML(File.read('spec/fixtures/files/report_item-with-list.xml'))
+    processor = described_class.new(data: doc.root)
+    value = processor.value(field: 'evidence.severity')
+    expect(value).to_not be_empty
+    expect(value).to include("2")
+  end
 end
