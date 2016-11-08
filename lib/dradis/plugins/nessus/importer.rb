@@ -38,7 +38,41 @@ module Dradis::Plugins::Nessus
 
     private
 
-    # Process each /NessusClientData_v2/Report/ReportHost
+    # Internal: Parses the specific "Nessus SYN Scanner" plugin into Dradis node
+    # properties.
+    #
+    # xml_host        - The Nokogiri XML node representing the parent host for
+    #                   this issue.
+    # host_node       - The Dradis Node that represents the host in the project.
+    # xml_report_item - The Nokogiri XML node representing the Service Detection
+    #                   <ReportItem> tag.
+    #
+    # Returns nothing.
+    #
+    def process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
+      port     = xml_report_item['port'].to_i
+      protocol = xml_report_item['protocol']
+      logger.info{ "\t\t\t => Creating new service: #{protocol}/#{port}" }
+
+      host_node.set_property(:services, {
+        port:     port,
+        protocol: protocol,
+        state:    'open',
+        name:     xml_report_item['svc_name'],
+        x_nessus: xml_report_item.at_xpath('./plugin_output').text
+      })
+
+      host_node.save
+    end
+
+    # Internal: Process each /NessusClientData_v2/Report/ReportHost creating a
+    # Dradis node and adding some properties to it (:ip, :os, etc.).
+    #
+    # xml_host        - The Nokogiri XML node representing the parent host for
+    #                   this issue.
+    #
+    # Returns nothing.
+    #
     def process_report_host(xml_host)
 
       # 1. Create host node
@@ -65,12 +99,29 @@ module Dradis::Plugins::Nessus
 
       # 3. Add Issue and associated Evidence for this host/port combination
       xml_host.xpath('./ReportItem').each do |xml_report_item|
-        next if xml_report_item.attributes['pluginID'].value == "0"
-        process_report_item(xml_host, host_node, xml_report_item)
+        case xml_report_item.attributes['pluginID'].value
+        when '0'
+        when '11219' # Nessus SYN scanner
+          process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
+        when '22964' # Service Detection
+          process_service_detection(xml_host, host_node, xml_report_item)
+        else
+          process_report_item(xml_host, host_node, xml_report_item)
+        end
       end #/ReportItem
     end
 
-    # Process each /NessusClientData_v2/Report/ReportHost/ReportItem
+    # Internal: Process each /NessusClientData_v2/Report/ReportHost/ReportItem
+    # and creates the corresponding Issue and Evidence in Dradis.
+    #
+    # xml_host        - The Nokogiri XML node representing the parent host for
+    #                   this issue.
+    # host_node       - The Dradis Node that represents the host in the project.
+    # xml_report_item - The Nokogiri XML node representing the Service Detection
+    #                   <ReportItem> tag.
+    #
+    # Returns nothing.
+    #
     def process_report_item(xml_host, host_node, xml_report_item)
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
@@ -92,6 +143,33 @@ module Dradis::Plugins::Nessus
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
 
       # 3.3. Compliance check information
+    end
+
+    # Internal: Parses the specific "Service Detection" plugin into Dradis node
+    # properties.
+    #
+    # xml_host        - The Nokogiri XML node representing the parent host for
+    #                   this issue.
+    # host_node       - The Dradis Node that represents the host in the project.
+    # xml_report_item - The Nokogiri XML node representing the Service Detection
+    #                   <ReportItem> tag.
+    #
+    # Returns nothing.
+    #
+    def process_service_detection(xml_host, host_node, xml_report_item)
+      port     = xml_report_item['port'].to_i
+      protocol = xml_report_item['protocol']
+      logger.info{ "\t\t\t => Creating new service: #{protocol}/#{port}" }
+
+      host_node.set_property(:services, {
+        port:     port,
+        protocol: protocol,
+        state:    'open',
+        name:     xml_report_item['svc_name'],
+        x_nessus: xml_report_item.at_xpath('./description').text
+      })
+
+      host_node.save
     end
   end
 end
