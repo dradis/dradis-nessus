@@ -38,8 +38,8 @@ module Dradis::Plugins::Nessus
 
     private
 
-    # Internal: Parses the specific "Nessus SYN Scanner" plugin into Dradis node
-    # properties.
+    # Internal: Parses the specific "Nessus SYN Scanner" and similar plugin into
+    # Dradis node properties.
     #
     # xml_host        - The Nokogiri XML node representing the parent host for
     #                   this issue.
@@ -49,6 +49,9 @@ module Dradis::Plugins::Nessus
     #
     # Returns nothing.
     #
+    # Plugins processed using this method:
+    #   - [11219] Nessus SYN Scanner
+    #   - [34220] Netstat Portscanner (WMI)
     def process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
       port     = xml_report_item['port'].to_i
       protocol = xml_report_item['protocol']
@@ -101,7 +104,7 @@ module Dradis::Plugins::Nessus
       xml_host.xpath('./ReportItem').each do |xml_report_item|
         case xml_report_item.attributes['pluginID'].value
         when '0'
-        when '11219' # Nessus SYN scanner
+        when '11219', '34220' # Nessus SYN scanner, Netstat Portscanner (WMI)
           process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
         when '22964' # Service Detection
           process_service_detection(xml_host, host_node, xml_report_item)
