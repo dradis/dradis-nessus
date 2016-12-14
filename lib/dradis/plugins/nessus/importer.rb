@@ -62,7 +62,7 @@ module Dradis::Plugins::Nessus
         protocol: protocol,
         state:    'open',
         name:     xml_report_item['svc_name'],
-        x_nessus: xml_report_item.at_xpath('./plugin_output').text
+        x_nessus: xml_report_item.at_xpath('./plugin_output').try(:text)
       })
 
       host_node.save
