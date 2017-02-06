@@ -131,7 +131,6 @@ module Dradis::Plugins::Nessus
       logger.info{ "\t\t\t => Creating new issue (plugin_id: #{plugin_id})" }
 
       issue_text = template_service.process_template(template: 'report_item', data: xml_report_item)
-      issue_text << "\n\n#[Host]#\n#{xml_host.attributes['name']}\n\n"
 
       issue = content_service.create_issue(text: issue_text, id: plugin_id)
 
