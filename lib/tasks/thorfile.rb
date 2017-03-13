@@ -15,6 +15,7 @@ class NessusTasks < Thor
       exit(-1)
     end
 
+    detect_and_set_project_scope
     importer = Dradis::Plugins::Nessus::Importer.new(logger: logger)
     importer.import(file: file_path)
 
