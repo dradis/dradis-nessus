@@ -128,7 +128,7 @@ module Dradis::Plugins::Nessus
     def process_report_item(xml_host, host_node, xml_report_item)
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
-      logger.info{ "\t\t\t => Creating new issue (plugin_id: #{plugin_id})" }
+      logger.info{ "\t\t => Creating new issue (plugin_id: #{plugin_id})" }
 
       issue_text = template_service.process_template(template: 'report_item', data: xml_report_item)
 
@@ -161,7 +161,7 @@ module Dradis::Plugins::Nessus
     def process_service_detection(xml_host, host_node, xml_report_item)
       port     = xml_report_item['port'].to_i
       protocol = xml_report_item['protocol']
-      logger.info{ "\t\t\t => Creating new service: #{protocol}/#{port}" }
+      logger.info{ "\t\t => Creating new service: #{protocol}/#{port}" }
 
       host_node.set_property(:services, {
         port:     port,
