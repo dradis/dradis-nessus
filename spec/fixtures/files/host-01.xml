@@ -6,15 +6,13 @@
       <tag name="HOST_END">Tue Aug  9 09:59:24 2011</tag>
       <tag name="HOST_START">Tue Aug  9 09:50:18 2011</tag>
     </HostProperties>
-    <ReportItem
-      port="0"
-      svc_name="general"
-      protocol="udp"
-      severity="1"
-      pluginID="10287"
-      pluginName="Traceroute Information"
-      pluginFamily="General">
-    </ReportIem>
+    <ReportItem port="0" svc_name="general" protocol="udp" severity="1" pluginID="10287" pluginName="Traceroute Information" pluginFamily="General" />
+    <ReportItem port="0" svc_name="unknown" protocol="icmp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
+    <ReportItem port="0" svc_name="unknown" protocol="tcp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
+    <ReportItem port="0" svc_name="unknown" protocol="udp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
+    <ReportItem port="21" svc_name="ftp?" protocol="tcp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
+    <ReportItem port="22" svc_name="ssh" protocol="tcp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
+    <ReportItem port="9090" svc_name="www" protocol="tcp" severity="0" pluginID="0" pluginName="" pluginFamily=""/>
   </ReportHost>
 </Report>
 </NessusClientData_v2>

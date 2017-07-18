@@ -13,12 +13,13 @@ describe Dradis::Plugins::Nessus::Importer do
     # Init services
     plugin = Dradis::Plugins::Nessus
 
-    @content_service = Dradis::Plugins::ContentService.new(plugin: plugin)
-    template_service = Dradis::Plugins::TemplateService.new(plugin: plugin)
+    @content_service = Dradis::Plugins::ContentService::Base.new(
+      logger: Logger.new(STDOUT),
+      plugin: plugin
+    )
 
     @importer = plugin::Importer.new(
-      content_service: @content_service,
-      template_service: template_service
+      content_service: @content_service
     )
 
     # Stub dradis-plugins methods
@@ -26,7 +27,9 @@ describe Dradis::Plugins::Nessus::Importer do
     # They return their argument hashes as objects mimicking
     # Nodes, Issues, etc
     allow(@content_service).to receive(:create_node) do |args|
-      OpenStruct.new(args)
+      obj = OpenStruct.new(args)
+      obj.define_singleton_method(:set_property) { |_, __| }
+      obj
     end
     allow(@content_service).to receive(:create_note) do |args|
       OpenStruct.new(args)
