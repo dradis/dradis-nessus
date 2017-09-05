@@ -22,9 +22,9 @@ module Nessus
         :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family,
         # simple tags
         :solution, :risk_factor, :description, :plugin_publication_date,
-        :metasploit_name, :cvss_vector, :cvss_temporal_vector, :synopsis,
+        :metasploit_name, :cvss_vector, :cvss3_vector, :cvss_temporal_vector, :synopsis,
         :exploit_available, :patch_publication_date, :plugin_modification_date,
-        :cvss_temporal_score, :cvss_base_score, :plugin_output,
+        :cvss_temporal_score, :cvss_base_score, :cvss3_base_score, :plugin_output,
         :plugin_version, :exploitability_ease, :vuln_publication_date,
         :exploit_framework_canvas, :exploit_framework_metasploit,
         :exploit_framework_core,
