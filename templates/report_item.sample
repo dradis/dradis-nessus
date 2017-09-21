@@ -23,6 +23,8 @@ If safe checks are enabled, this may be a false positive since it is based on th
 
   <plugin_publication_date>2002/06/17</plugin_publication_date>
   <metasploit_name>Apache Win32 Chunked Encoding</metasploit_name>
+  <cvss3_base_score>3.7</cvss3_base_score>
+  <cvss3_vector>CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N</cvss3_vector>
   <cvss_vector>CVSS2#AV:N/AC:L/Au:N/C:P/I:P/A:P</cvss_vector>
   <synopsis>The remote web server is vulnerable to a remote code execution attack.</synopsis>
   <plugin_type>remote</plugin_type>

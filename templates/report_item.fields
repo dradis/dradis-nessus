@@ -16,9 +16,11 @@ report_item.description
 report_item.plugin_publication_date
 report_item.metasploit_name
 report_item.cvss_vector
+report_item.cvss3_vector
 report_item.cvss_temporal_vector
 report_item.cvss_temporal_score
 report_item.cvss_base_score
+report_item.cvss3_base_score
 report_item.synopsis
 report_item.exploit_available
 report_item.patch_publication_date
