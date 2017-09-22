@@ -1,6 +1,6 @@
 ## Dradis Framework 3.8 (September, 2017) ##
 
-*   No changes.
+*   Added CVSSv3 fields.
 
 ## Dradis Framework 3.7 (July, 2017) ##
 
