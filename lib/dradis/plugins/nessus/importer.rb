@@ -55,15 +55,20 @@ module Dradis::Plugins::Nessus
     def process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
       port     = xml_report_item['port'].to_i
       protocol = xml_report_item['protocol']
-      logger.info{ "\t\t\t => Creating new service: #{protocol}/#{port}" }
+      logger.info { "\t\t\t => Creating new service: #{protocol}/#{port}" }
 
-      host_node.set_property(:services, {
-        port:     port,
+      host_node.set_property(
+        :services,
+        port: port,
         protocol: protocol,
         state:    'open',
         name:     xml_report_item['svc_name'],
-        x_nessus: xml_report_item.at_xpath('./plugin_output').try(:text)
-      })
+        extra:  [{
+          source: 'Nesus',
+          id: 'x_nessus',
+          output: xml_report_item.at_xpath('./plugin_output').try(:text)
+        }]
+      )
 
       host_node.save
     end
@@ -161,15 +166,20 @@ module Dradis::Plugins::Nessus
     def process_service_detection(xml_host, host_node, xml_report_item)
       port     = xml_report_item['port'].to_i
       protocol = xml_report_item['protocol']
-      logger.info{ "\t\t => Creating new service: #{protocol}/#{port}" }
+      logger.info { "\t\t => Creating new service: #{protocol}/#{port}" }
 
-      host_node.set_property(:services, {
+      host_node.set_property(
+        :services,
         port:     port,
         protocol: protocol,
         state:    'open',
         name:     xml_report_item['svc_name'],
-        x_nessus: xml_report_item.at_xpath('./description').text
-      })
+        extra:  [{
+          source: 'Nesus',
+          id: 'x_nessus',
+          output: xml_report_item.at_xpath('./description').try(:text)
+        }]
+      )
 
       host_node.save
     end
