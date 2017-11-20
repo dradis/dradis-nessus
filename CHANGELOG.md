@@ -2,6 +2,9 @@
 
 *   Added CVSSv3 fields.
 
+*   Correctly format bullet lists whether separated by
+    1 or 2 new lines
+
 ## Dradis Framework 3.7 (July, 2017) ##
 
 *   No changes.
