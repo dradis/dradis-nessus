@@ -64,7 +64,7 @@ module Dradis::Plugins::Nessus
         state:    'open',
         name:     xml_report_item['svc_name'],
         extra:  [{
-          source: 'Nesus',
+          source: 'Nessus',
           id: 'x_nessus',
           output: xml_report_item.at_xpath('./plugin_output').try(:text)
         }]
@@ -175,7 +175,7 @@ module Dradis::Plugins::Nessus
         state:    'open',
         name:     xml_report_item['svc_name'],
         extra:  [{
-          source: 'Nesus',
+          source: 'Nessus',
           id: 'x_nessus',
           output: xml_report_item.at_xpath('./description').try(:text)
         }]
