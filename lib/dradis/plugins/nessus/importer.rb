@@ -57,17 +57,13 @@ module Dradis::Plugins::Nessus
       protocol = xml_report_item['protocol']
       logger.info { "\t\t\t => Creating new service: #{protocol}/#{port}" }
 
-      host_node.set_property(
-        :services,
+      host_node.set_service(
+        name: xml_report_item['svc_name'],
         port: port,
         protocol: protocol,
-        state:    'open',
-        name:     xml_report_item['svc_name'],
-        extra:  [{
-          source: 'Nessus',
-          id: 'x_nessus',
-          output: xml_report_item.at_xpath('./plugin_output').try(:text)
-        }]
+        source: 'Nessus',
+        state: 'open',
+        x_nessus: xml_report_item.at_xpath('./plugin_output').try(:text),
       )
 
       host_node.save
@@ -168,17 +164,12 @@ module Dradis::Plugins::Nessus
       protocol = xml_report_item['protocol']
       logger.info { "\t\t => Creating new service: #{protocol}/#{port}" }
 
-      host_node.set_property(
-        :services,
-        port:     port,
+      host_node.set_service(
+        name: xml_report_item['svc_name'],
+        port: port,
         protocol: protocol,
-        state:    'open',
-        name:     xml_report_item['svc_name'],
-        extra:  [{
-          source: 'Nessus',
-          id: 'x_nessus',
-          output: xml_report_item.at_xpath('./description').try(:text)
-        }]
+        state: 'open',
+        x_nessus: xml_report_item.at_xpath('./description').try(:text)
       )
 
       host_node.save
