@@ -169,6 +169,7 @@ module Dradis::Plugins::Nessus
         port: port,
         protocol: protocol,
         state: 'open',
+        source: 'Nessus',
         x_nessus: xml_report_item.at_xpath('./description').try(:text)
       )
 
