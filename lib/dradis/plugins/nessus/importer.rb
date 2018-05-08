@@ -41,8 +41,6 @@ module Dradis::Plugins::Nessus
     # Internal: Parses the specific "Nessus SYN Scanner" and similar plugin into
     # Dradis node properties.
     #
-    # xml_host        - The Nokogiri XML node representing the parent host for
-    #                   this issue.
     # host_node       - The Dradis Node that represents the host in the project.
     # xml_report_item - The Nokogiri XML node representing the Service Detection
     #                   <ReportItem> tag.
@@ -52,21 +50,12 @@ module Dradis::Plugins::Nessus
     # Plugins processed using this method:
     #   - [11219] Nessus SYN Scanner
     #   - [34220] Netstat Portscanner (WMI)
-    def process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
-      port     = xml_report_item['port'].to_i
-      protocol = xml_report_item['protocol']
-      logger.info { "\t\t\t => Creating new service: #{protocol}/#{port}" }
-
-      host_node.set_service(
-        name: xml_report_item['svc_name'],
-        port: port,
-        protocol: protocol,
-        source: 'Nessus',
-        state: 'open',
-        x_nessus: xml_report_item.at_xpath('./plugin_output').try(:text),
+    def process_nessus_syn_scanner(host_node, xml_report_item)
+      process_service(
+        host_node,
+        xml_report_item,
+        { 'syn-scanner' => xml_report_item.at_xpath('./plugin_output').try(:text)}
       )
-
-      host_node.save
     end
 
     # Internal: Process each /NessusClientData_v2/Report/ReportHost creating a
@@ -106,9 +95,9 @@ module Dradis::Plugins::Nessus
         case xml_report_item.attributes['pluginID'].value
         when '0'
         when '11219', '34220' # Nessus SYN scanner, Netstat Portscanner (WMI)
-          process_nessus_syn_scanner(xml_host, host_node, xml_report_item)
+          process_nessus_syn_scanner(host_node, xml_report_item)
         when '22964' # Service Detection
-          process_service_detection(xml_host, host_node, xml_report_item)
+          process_service_detection(host_node, xml_report_item)
         else
           process_report_item(xml_host, host_node, xml_report_item)
         end
@@ -151,26 +140,35 @@ module Dradis::Plugins::Nessus
     # Internal: Parses the specific "Service Detection" plugin into Dradis node
     # properties.
     #
-    # xml_host        - The Nokogiri XML node representing the parent host for
-    #                   this issue.
     # host_node       - The Dradis Node that represents the host in the project.
     # xml_report_item - The Nokogiri XML node representing the Service Detection
     #                   <ReportItem> tag.
     #
     # Returns nothing.
     #
-    def process_service_detection(xml_host, host_node, xml_report_item)
+    def process_service_detection(host_node, xml_report_item)
+      output = xml_report_item.at_xpath('./plugin_output').try(:text) || xml_report_item.at_xpath('./description').try(:text)
+      process_service(
+        host_node,
+        xml_report_item,
+        { 'service-detection' => output }
+      )
+    end
+
+    def process_service(host_node, xml_report_item, service_extra)
+      name     = xml_report_item['svc_name']
       port     = xml_report_item['port'].to_i
       protocol = xml_report_item['protocol']
       logger.info { "\t\t => Creating new service: #{protocol}/#{port}" }
 
       host_node.set_service(
-        name: xml_report_item['svc_name'],
-        port: port,
-        protocol: protocol,
-        state: 'open',
-        source: 'Nessus',
-        x_nessus: xml_report_item.at_xpath('./description').try(:text)
+        service_extra.merge({
+          name: name,
+          port: port,
+          protocol: protocol,
+          state: :open,
+          source: :nessus
+        })
       )
 
       host_node.save
