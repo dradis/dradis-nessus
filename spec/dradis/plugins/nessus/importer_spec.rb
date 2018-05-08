@@ -28,7 +28,8 @@ describe Dradis::Plugins::Nessus::Importer do
     # Nodes, Issues, etc
     allow(@content_service).to receive(:create_node) do |args|
       obj = OpenStruct.new(args)
-      obj.define_singleton_method(:set_property) { |_, __| }
+      obj.define_singleton_method(:set_property) { |*| }
+      obj.define_singleton_method(:set_service) { |*| }
       obj
     end
     allow(@content_service).to receive(:create_note) do |args|
