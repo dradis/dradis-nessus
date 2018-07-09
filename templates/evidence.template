@@ -1,8 +1,5 @@
-#[Port]#
-%evidence.port%
-
-#[Severity]#
-%evidence.severity%
+#[Location]#
+%evidence.protocol%/%evidence.port%
 
 #[Output]#
 bc.. %evidence.plugin_output%
