@@ -1,5 +1,7 @@
 ## Dradis Framework 3.10 (August, 2018) ##
 
+*   Make Issue Title available at the Evidence level
+
 *   Update default configuration to match Welcome templates
 
 *   Split services data into services and services_extra tables
