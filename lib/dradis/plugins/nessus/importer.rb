@@ -5,6 +5,7 @@ module Dradis::Plugins::Nessus
     # the dropdown list and uploads a file.
     # @returns true if the operation was successful, false otherwise
     def import(params={})
+      @nodes = []
       file_content    = File.read( params[:file] )
 
       logger.info{'Parsing nessus output file...'}
@@ -30,6 +31,11 @@ module Dradis::Plugins::Nessus
           process_report_host(xml_host)
         end #/ReportHost
         logger.info{ "Report processed." }
+
+        logger.info("Saving data")
+        save
+        logger.info("Done")
+
       end  #/Report
 
       return true
@@ -72,23 +78,20 @@ module Dradis::Plugins::Nessus
       host_label = xml_host.attributes['name'].value
       host_label += " (#{xml_host.attributes['fqdn'].value})" if xml_host.attributes['fqdn']
 
-      host_node = content_service.create_node(label: host_label, type: :host)
+      host_node = { label: host_label, type: :host, notes: [], evidence: [], services: [] }
       logger.info{ "\tHost: #{host_label}" }
 
       # 2. Add host info note and host properties
       host_note_text = template_service.process_template(template: 'report_host', data: xml_host)
-      content_service.create_note(text: host_note_text, node: host_node)
+      host_node[:notes] << { text: host_note_text, node: host_node }
 
-      if host_node.respond_to?(:properties)
-        nh = ::Nessus::Host.new(xml_host)
-        host_node.set_property(:fqdn,         nh.fqdn)             if nh.try(:fqdn)
-        host_node.set_property(:ip,           nh.ip)               if nh.try(:ip)
-        host_node.set_property(:mac_address,  nh.mac_address)      if nh.try(:mac_address)
-        host_node.set_property(:netbios_name, nh.netbios_name)     if nh.try(:netbios_name)
-        host_node.set_property(:os,           nh.operating_system) if nh.try(:operating_system)
-        host_node.save
-      end
-
+      host_node[:properties] = {}
+      nh = ::Nessus::Host.new(xml_host)
+      host_node[:properties][:fqdn] = nh.fqdn if nh.try(:fqdn)
+      host_node[:properties][:ip] = nh.ip if nh.try(:ip)
+      host_node[:properties][:mac_address] = nh.mac_address if nh.try(:mac_address)
+      host_node[:properties][:netbios_name] = nh.netbios_name if nh.try(:netbios_name)
+      host_node[:properties][:os] = nh.os if nh.try(:os)
 
       # 3. Add Issue and associated Evidence for this host/port combination
       xml_host.xpath('./ReportItem').each do |xml_report_item|
@@ -102,6 +105,8 @@ module Dradis::Plugins::Nessus
           process_report_item(xml_host, host_node, xml_report_item)
         end
       end #/ReportItem
+
+      @nodes << host_node
     end
 
     # Internal: Process each /NessusClientData_v2/Report/ReportHost/ReportItem
@@ -122,7 +127,7 @@ module Dradis::Plugins::Nessus
 
       issue_text = template_service.process_template(template: 'report_item', data: xml_report_item)
 
-      issue = content_service.create_issue(text: issue_text, id: plugin_id)
+      issue = { text: issue_text, id: plugin_id }
 
       # 3.2. Add Evidence to link the port/protocol and Issue
       port_info = xml_report_item.attributes['protocol'].value
@@ -131,8 +136,7 @@ module Dradis::Plugins::Nessus
 
       logger.info{ "\t\t\t => Adding reference to this host" }
       evidence_content = template_service.process_template(template: 'evidence', data: xml_report_item)
-
-      content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
+      host_node[:evidence] << { issue: issue, content: evidence_content }
 
       # 3.3. Compliance check information
     end
@@ -161,7 +165,7 @@ module Dradis::Plugins::Nessus
       protocol = xml_report_item['protocol']
       logger.info { "\t\t => Creating new service: #{protocol}/#{port}" }
 
-      host_node.set_service(
+      host_node[:services] <<
         service_extra.merge({
           name: name,
           port: port,
@@ -169,9 +173,40 @@ module Dradis::Plugins::Nessus
           state: :open,
           source: :nessus
         })
-      )
+    end
 
-      host_node.save
+    def save
+      nodes_total = @nodes.count
+      nodes_saved = 0
+      @nodes.each_slice(100) do |nodes|
+        all_issues = nodes.map do |node|
+          node[:evidence].map { |evidence| evidence[:issue] }
+        end.flatten
+        # remove dups
+        issues = []
+        all_issues.each do |issue|
+          issues << issue unless issues.map { |i| i[:id] }.include?(issue[:id])
+        end
+        content_service.create_many_issues(issues)
+
+        content_service.create_many_nodes(nodes)
+
+        evidence = nodes.map do |node|
+          node[:evidence].each { |e| e[:node_label] = node[:label] } # we need a reference to the node
+          node[:evidence]
+        end.flatten
+        content_service.create_many_evidence(evidence)
+
+        notes = nodes.map do |node|
+          node[:notes].each { |n| n[:node_label] = node[:label] } # we need a reference to the node
+          node[:notes]
+        end.flatten
+        content_service.create_many_notes(notes)
+
+        nodes_saved += nodes.count
+        percentage = (nodes_saved.to_f / nodes_total * 100).to_i
+        logger.info("#{percentage}% saved")
+      end
     end
   end
 end
