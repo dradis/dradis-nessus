@@ -178,25 +178,35 @@ module Dradis::Plugins::Nessus
     def save
       nodes_total = @nodes.count
       nodes_saved = 0
-      @nodes.each_slice(100) do |nodes|
-        all_issues = nodes.map do |node|
+      percentage  = 0
+      batch_size  = ENV.key?('BATCH_SIZE') ? ENV['BATCH_SIZE'].to_i : 1
+      logger.debug "saving in batches of #{batch_size}"
+      issues = []
+      @nodes.each_slice(batch_size) do |nodes|
+        # issues
+        all_issues_in_node = nodes.map do |node|
           node[:evidence].map { |evidence| evidence[:issue] }
         end.flatten
         # remove dups
-        issues = []
-        all_issues.each do |issue|
-          issues << issue unless issues.map { |i| i[:id] }.include?(issue[:id])
+        new_issues_in_node = []
+        all_issues_in_node.each do |issue|
+          new_issues_in_node << issue unless issues.map { |i| i[:id] }.include?(issue[:id])
         end
-        content_service.create_many_issues(issues)
+        issues += new_issues_in_node
 
+        content_service.create_many_issues(new_issues_in_node)
+
+        # nodes
         content_service.create_many_nodes(nodes)
 
+        # evidence
         evidence = nodes.map do |node|
           node[:evidence].each { |e| e[:node_label] = node[:label] } # we need a reference to the node
           node[:evidence]
         end.flatten
         content_service.create_many_evidence(evidence)
 
+        # notes
         notes = nodes.map do |node|
           node[:notes].each { |n| n[:node_label] = node[:label] } # we need a reference to the node
           node[:notes]
@@ -204,8 +214,11 @@ module Dradis::Plugins::Nessus
         content_service.create_many_notes(notes)
 
         nodes_saved += nodes.count
-        percentage = (nodes_saved.to_f / nodes_total * 100).to_i
-        logger.info("#{percentage}% saved")
+        new_percentage = (nodes_saved.to_f / nodes_total * 100).to_i
+        if new_percentage > percentage
+          percentage = new_percentage
+          logger.info("#{percentage}% saved")
+        end
       end
     end
   end
