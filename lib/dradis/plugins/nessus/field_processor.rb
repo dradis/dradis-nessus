@@ -43,9 +43,7 @@ module Dradis
 
         def format_bullet_point_lists(input)
           input.split("\n").map do |paragraph|
-            if paragraph =~ /^  - (.*)$/m
-              '* ' + $1.gsub(/    /, '').gsub(/\n/, ' ')
-            elsif paragraph =~ /^- (.*)$/m
+            if paragraph =~ /^ *- (.*)$/m
               '* ' + $1.gsub(/    /, '').gsub(/\n/, ' ')
             else
               paragraph
