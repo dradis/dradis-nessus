@@ -28,7 +28,7 @@ module Dradis
           else
             output = @nessus_object.try(name) || 'n/a'
 
-            if field == 'report_item.description' && output =~ /^  -/
+            if field == 'report_item.description' && output =~ /^\s+-/
               format_bullet_point_lists(output)
             else
               output
@@ -39,12 +39,14 @@ module Dradis
         private
         def format_bullet_point_lists(input)
           input.split("\n").map do |paragraph|
-            if paragraph =~ /^  - (.*)$/m
-              '* ' + $1.gsub(/    /, '').gsub(/\n/, ' ')
-            else
-              paragraph
-            end
-          end.join("\n\n")
+						if paragraph =~ /(.*)\s+:\s*$/m
+							$1 + ':'
+						elsif paragraph =~ /^\s+-\s+(.*)$/m
+					  	'* ' + $1.gsub(/\s{3,}/, ' ').gsub(/\n/, ' ')
+					 	else
+					  	paragraph
+					 	end
+					end.join("\n")
         end
       end
 
