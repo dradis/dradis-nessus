@@ -39,14 +39,14 @@ module Dradis
         private
         def format_bullet_point_lists(input)
           input.split("\n").map do |paragraph|
-						if paragraph =~ /(.*)\s+:\s*$/m
-							$1 + ':'
-						elsif paragraph =~ /^\s+-\s+(.*)$/m
-					  	'* ' + $1.gsub(/\s{3,}/, ' ').gsub(/\n/, ' ')
-					 	else
-					  	paragraph
-					 	end
-					end.join("\n")
+            if paragraph =~ /(.*)\s+:\s*$/m
+              $1 + ':'
+            elsif paragraph =~ /^\s+-\s+(.*)$/m
+              '* ' + $1.gsub(/\s{3,}/, ' ').gsub(/\n/, ' ')
+            else
+              paragraph
+            end
+          end.join("\n")
         end
       end
 
