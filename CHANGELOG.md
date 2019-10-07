@@ -1,3 +1,7 @@
+## Dradis Framework 3.15 (XXX, 2019) ##
+
+*   Fixed bullet points formatting to handle internal text column widths
+
 ## Dradis Framework 3.14 (August, 2019) ##
 
 *   No changes.
