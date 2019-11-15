@@ -12,7 +12,7 @@ describe Dradis::Plugins::Nessus::FieldProcessor do
         value = processor.value(field: 'report_item.description')
         expect(value).to_not be_empty
 
-        expect(value).to include("* A denial of service vulnerability exists relating to the 'mod_dav' module as it relates to MERGE requests. (CVE-2013-1896)")
+        expect(value).to include("* A denial of service vulnerability exists relating to the 'mod_dav' module as it relates to MERGE requests.\n\n    (CVE-2013-1896)")
       end
     end
   end

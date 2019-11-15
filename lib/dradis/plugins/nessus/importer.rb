@@ -5,34 +5,17 @@ module Dradis::Plugins::Nessus
     # the dropdown list and uploads a file.
     # @returns true if the operation was successful, false otherwise
     def import(params={})
-      file_content    = File.read( params[:file] )
+      file_content = File.read(params[:file])
 
-      logger.info{'Parsing nessus output file...'}
-      doc = Nokogiri::XML( file_content )
-      logger.info{'Done.'}
-
-      if doc.xpath('/NessusClientData_v2/Report').empty?
-        error = "No reports were detected in the uploaded file (/NessusClientData_v2/Report). Ensure you uploaded a Nessus XML v2 (.nessus) report."
-        logger.fatal{ error }
-        content_service.create_note text: error
-        return false
+      logger.info { 'Parsing nessus output file...' }
+      Nokogiri::XML::Reader(file_content).each do |node|
+        if node.name == 'ReportHost' && node.node_type == Nokogiri::XML::Reader::TYPE_ELEMENT
+          process_report_host(Nokogiri::XML(node.outer_xml).at('./ReportHost'))
+        end
       end
+      logger.info { 'Done.' }
 
-      doc.xpath('/NessusClientData_v2/Report').each do |xml_report|
-        report_label = xml_report.attributes['name'].value
-        logger.info{ "Processing report: #{report_label}" }
-        # No need to create a report node for each report. It may be good to
-        # create a plugin.output/nessus.reports with info for each scan, but
-        # for the time being we just append stuff to the Host
-        # report_node = parent.children.find_or_create_by_label(report_label)
-
-        xml_report.xpath('./ReportHost').each do |xml_host|
-          process_report_host(xml_host)
-        end #/ReportHost
-        logger.info{ "Report processed." }
-      end  #/Report
-
-      return true
+      true
     end # /import
 
 
