@@ -1,4 +1,4 @@
-module Dradis::Plugins::NessusTest
+module Dradis::Plugins::Nessus
   class Importer < Dradis::Plugins::Upload::Importer
 
     # The framework will call this function if the user selects this plugin from
@@ -80,7 +80,7 @@ module Dradis::Plugins::NessusTest
       content_service.create_note(text: host_note_text, node: host_node)
 
       if host_node.respond_to?(:properties)
-        nh = ::NessusTest::Host.new(xml_host)
+        nh = ::Nessus::Host.new(xml_host)
         host_node.set_property(:fqdn,         nh.fqdn)             if nh.try(:fqdn)
         host_node.set_property(:ip,           nh.ip)               if nh.try(:ip)
         host_node.set_property(:mac_address,  nh.mac_address)      if nh.try(:mac_address)

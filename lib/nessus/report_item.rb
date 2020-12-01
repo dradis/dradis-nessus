@@ -1,4 +1,4 @@
-module NessusTest
+module Nessus
   # This class represents each of the /NessusClientData_v2/Report/ReportHost/ReportItem
   # elements in the Nessus XML document.
   #
