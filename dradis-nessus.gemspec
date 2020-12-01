@@ -1,6 +1,6 @@
 $:.push File.expand_path('../lib', __FILE__)
 require 'dradis/plugins/nessus/version'
-version = Dradis::Plugins::NessusTest::VERSION::STRING
+version = Dradis::Plugins::Nessus::VERSION::STRING
 
 
 # Describe your gem and declare its dependencies:
