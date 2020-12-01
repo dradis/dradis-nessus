@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Nessus::Host do
+describe NessusTest::Host do
   let(:host1_xml) { File.expand_path('../../fixtures/files/host-01.xml', __FILE__) }
 
   before do
     doc = Nokogiri::XML(File.read(host1_xml))
-    @host = Nessus::Host.new(doc.xpath('/NessusClientData_v2/Report/ReportHost').first)
+    @host = NessusTest::Host.new(doc.xpath('/NessusClientData_v2/Report/ReportHost').first)
   end
 
   # These are the properties we need to support:
@@ -24,6 +24,6 @@ describe Nessus::Host do
 
   it 'provides access to each of its ReportItems' do
     report_items = @host.report_items
-    report_items.each { |item| expect(item).to be_a(Nessus::ReportItem) }
+    report_items.each { |item| expect(item).to be_a(NessusTest::ReportItem) }
   end
 end

@@ -1,11 +1,11 @@
 module Dradis
   module Plugins
-    module Nessus
+    module NessusTest
 
       class FieldProcessor < Dradis::Plugins::Upload::FieldProcessor
 
         def post_initialize(args={})
-          @nessus_object = (data.name == 'ReportHost') ? ::Nessus::Host.new(data) : ::Nessus::ReportItem.new(data)
+          @nessus_object = (data.name == 'ReportHost') ? ::NessusTest::Host.new(data) : ::NessusTest::ReportItem.new(data)
         end
 
         def value(args={})

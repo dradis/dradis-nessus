@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Dradis::Plugins::Nessus::FieldProcessor do
+describe Dradis::Plugins::NessusTest::FieldProcessor do
 
   describe '%report_item.description% field formatting' do
     context 'bullet points' do

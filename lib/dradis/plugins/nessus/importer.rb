@@ -1,4 +1,4 @@
-module Dradis::Plugins::Nessus
+module Dradis::Plugins::NessusTest
   class Importer < Dradis::Plugins::Upload::Importer
 
     # The framework will call this function if the user selects this plugin from
@@ -80,7 +80,7 @@ module Dradis::Plugins::Nessus
       content_service.create_note(text: host_note_text, node: host_node)
 
       if host_node.respond_to?(:properties)
-        nh = ::Nessus::Host.new(xml_host)
+        nh = ::NessusTest::Host.new(xml_host)
         host_node.set_property(:fqdn,         nh.fqdn)             if nh.try(:fqdn)
         host_node.set_property(:ip,           nh.ip)               if nh.try(:ip)
         host_node.set_property(:mac_address,  nh.mac_address)      if nh.try(:mac_address)
@@ -116,6 +116,15 @@ module Dradis::Plugins::Nessus
     # Returns nothing.
     #
     def process_report_item(xml_host, host_node, xml_report_item)
+      # fetch ip and fqdn from host_node and add to report_item node
+      if host_node.respond_to?(:properties)
+        xml_report_item.set_property(:ip,     host_node.ip)       if host_node.try(:ip)
+        xml_report_item.set_property(:fqdn,   host_node.fqdn)     if host_node.try(:fqdn)
+        xml_report_item.save
+        logger.info{ "\t\t\t ====> IP and FQDN should be added to report_item" }
+        logger.info{ "\t\t\t ======> Vals: #{xml_report_item['ip'].value} #{xml_report_item['fqdn'].value}" }
+      end
+
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
       logger.info{ "\t\t => Creating new issue (plugin_id: #{plugin_id})" }

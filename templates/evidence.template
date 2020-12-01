@@ -1,5 +1,11 @@
-#[Location]#
+#[Port]#
 %evidence.protocol%/%evidence.port%
+
+#[IP]#
+%evidence.ip%
+
+#[FQDN]#
+%evidence.fqdn%
 
 #[Output]#
 bc.. %evidence.plugin_output%

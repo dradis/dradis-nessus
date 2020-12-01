@@ -1,4 +1,4 @@
-module Nessus
+module NessusTest
   # This class represents each of the /NessusClientData_v2/Report/ReportHost/ReportItem
   # elements in the Nessus XML document.
   #
@@ -19,7 +19,7 @@ module Nessus
     def supported_tags
       [
         # attributes
-        :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family,
+        :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family, :ip, :fqdn,
         # simple tags
         :solution, :risk_factor, :description, :plugin_publication_date,
         :metasploit_name, :cvss_vector, :cvss3_vector, :cvss_temporal_vector, :synopsis,
@@ -51,7 +51,7 @@ module Nessus
     # attribute, simple descendent or collection that it maps to in the XML
     # tree.
     def method_missing(method, *args)
-      
+
       # We could remove this check and return nil for any non-recognized tag.
       # The problem would be that it would make tricky to debug problems with
       # typos. For instance: <>.potr would return nil instead of raising an
@@ -65,6 +65,8 @@ module Nessus
       #   plugin_id, plugin_name, plugin_family
       translations_table = {
         # @port           = xml.attributes["port"]
+        # @ip             = xml.attributes["ip"]
+        # @fqdn           = xml.attributes["fqdn"]
         # @svc_name       = xml.attributes["svc_name"]
         # @protocol       = xml.attributes["protocol"]
         # @severity       = xml.attributes["severity"]

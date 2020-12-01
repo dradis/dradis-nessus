@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Dradis::Plugins::Nessus::Importer do
+describe Dradis::Plugins::NessusTest::Importer do
 
   before(:each) do
     # Stub template service
@@ -11,7 +11,7 @@ describe Dradis::Plugins::Nessus::Importer do
 
 
     # Init services
-    plugin = Dradis::Plugins::Nessus
+    plugin = Dradis::Plugins::NessusTest
 
     @content_service = Dradis::Plugins::ContentService::Base.new(
       logger: Logger.new(STDOUT),

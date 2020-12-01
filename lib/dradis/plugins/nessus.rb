@@ -1,6 +1,6 @@
 module Dradis
   module Plugins
-    module Nessus
+    module NessusTest
     end
   end
 end
