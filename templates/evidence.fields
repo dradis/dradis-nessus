@@ -11,6 +11,10 @@ compliance.cm_see_also
 compliance.cm_solution
 evidence.plugin_output
 evidence.port
+evidence.ip
+evidence.fqdn
+evidence.rdns
+evidence.netbios
 evidence.protocol
 evidence.svc_name
 evidence.severity

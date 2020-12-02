@@ -116,6 +116,21 @@ module Dradis::Plugins::Nessus
     # Returns nothing.
     #
     def process_report_item(xml_host, host_node, xml_report_item)
+      # fetch ip and fqdn from xml_host and add to clone of report_item node
+      ip = xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)
+      fqdn = xml_host.at_xpath('./HostProperties/tag[@name=\'host-fqdn\']').try(:text)
+      rdns = xml_host.at_xpath('./HostProperties/tag[@name=\'host-rdns\']').try(:text)
+      netbios = xml_host.at_xpath('./HostProperties/tag[@name=\'netbios-name\']').try(:text)
+
+      fqdn = netbios.downcase if fqdn.nil? || fqdn.empty?
+
+      # clone original b/c I think the original is read-only, and add params
+      new_report = xml_report_item.dup()
+      new_report.[]=("ip", ip)
+      new_report.[]=("fqdn", fqdn)
+      new_report.[]=("rdns", rdns)
+      new_report.[]=("netbios", netbios)
+
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
       logger.info{ "\t\t => Creating new issue (plugin_id: #{plugin_id})" }
@@ -130,7 +145,7 @@ module Dradis::Plugins::Nessus
       port_info += xml_report_item.attributes['port'].value
 
       logger.info{ "\t\t\t => Adding reference to this host" }
-      evidence_content = template_service.process_template(template: 'evidence', data: xml_report_item)
+      evidence_content = template_service.process_template(template: 'evidence', data: new_report)
 
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
 
