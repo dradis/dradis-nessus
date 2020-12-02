@@ -145,6 +145,7 @@ module Dradis::Plugins::Nessus
       evidence_content = template_service.process_template(template: 'evidence', data: new_report)
 
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
+      logger.info{ "-=-=- #{evidence_content}" }
 
       # 3.3. Compliance check information
     end
