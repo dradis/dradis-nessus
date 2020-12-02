@@ -14,6 +14,7 @@ evidence.port
 evidence.ip
 evidence.fqdn
 evidence.rdns
+evidence.netbios
 evidence.protocol
 evidence.svc_name
 evidence.severity

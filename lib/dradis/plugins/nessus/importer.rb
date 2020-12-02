@@ -120,12 +120,14 @@ module Dradis::Plugins::Nessus
       ip = xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)
       fqdn = xml_host.at_xpath('./HostProperties/tag[@name=\'host-fqdn\']').try(:text)
       rdns = xml_host.at_xpath('./HostProperties/tag[@name=\'host-rdns\']').try(:text)
+      netbios = xml_host.at_xpath('./HostProperties/tag[@name=\'netbios-name\']').try(:text)
 
       # clone original b/c I think the original is read-only, and add params
       new_report = xml_report_item.dup()
       new_report.[]=("ip", ip)
       new_report.[]=("fqdn", fqdn)
       new_report.[]=("rdns", rdns)
+      new_report.[]=("netbios", netbios)
 
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value

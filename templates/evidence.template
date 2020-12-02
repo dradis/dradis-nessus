@@ -10,5 +10,8 @@
 #[RDNS]#
 %evidence.rdns%
 
+#[Netbios]#
+%evidence.netbios%
+
 #[Output]#
 bc.. %evidence.plugin_output%
