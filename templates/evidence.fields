@@ -13,6 +13,7 @@ evidence.plugin_output
 evidence.port
 evidence.ip
 evidence.fqdn
+evidence.rdns
 evidence.protocol
 evidence.svc_name
 evidence.severity

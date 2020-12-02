@@ -19,7 +19,7 @@ module Nessus
     def supported_tags
       [
         # attributes
-        :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family, :ip, :fqdn,
+        :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family, :ip, :fqdn, :rdns,
         # simple tags
         :solution, :risk_factor, :description, :plugin_publication_date,
         :metasploit_name, :cvss_vector, :cvss3_vector, :cvss_temporal_vector, :synopsis,
@@ -67,6 +67,7 @@ module Nessus
         # @port           = xml.attributes["port"]
         # @ip             = xml.attributes["ip"]
         # @fqdn           = xml.attributes["fqdn"]
+        # @rdns           = xml.attributes["rdns"]
         # @svc_name       = xml.attributes["svc_name"]
         # @protocol       = xml.attributes["protocol"]
         # @severity       = xml.attributes["severity"]
@@ -74,7 +75,8 @@ module Nessus
         :plugin_name => 'pluginName',
         :plugin_family  => 'pluginFamily',
         :ip  => 'ip',
-        :fqdn  => 'fqdn'
+        :fqdn  => 'fqdn',
+        :rdns  => 'rdns'
       }
       method_name = translations_table.fetch(method, method.to_s)
       return @xml.attributes[method_name].value if @xml.attributes.key?(method_name)
