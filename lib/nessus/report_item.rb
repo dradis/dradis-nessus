@@ -72,7 +72,9 @@ module Nessus
         # @severity       = xml.attributes["severity"]
         :plugin_id => 'pluginID',
         :plugin_name => 'pluginName',
-        :plugin_family  => 'pluginFamily'
+        :plugin_family  => 'pluginFamily',
+        :ip  => 'ip',
+        :fqdn  => 'fqdn'
       }
       method_name = translations_table.fetch(method, method.to_s)
       return @xml.attributes[method_name].value if @xml.attributes.key?(method_name)

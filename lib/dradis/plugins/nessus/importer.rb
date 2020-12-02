@@ -116,14 +116,18 @@ module Dradis::Plugins::Nessus
     # Returns nothing.
     #
     def process_report_item(xml_host, host_node, xml_report_item)
-      # fetch ip and fqdn from host_node and add to report_item node
-      if host_node.respond_to?(:properties)
-        xml_report_item.set_property(:ip,     host_node.ip)       if host_node.try(:ip)
-        xml_report_item.set_property(:fqdn,   host_node.fqdn)     if host_node.try(:fqdn)
-        xml_report_item.save
-        logger.info{ "\t\t\t ====> IP and FQDN should be added to report_item" }
-        logger.info{ "\t\t\t ======> Vals: #{xml_report_item['ip'].value} #{xml_report_item['fqdn'].value}" }
-      end
+      # fetch ip and fqdn from host_node and add to clone of report_item node
+      logger.info{ "--- #{xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)}" }
+      ip = xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)
+      fqdn = xml_host.at_xpath('./HostProperties/tag[@name=\'host-fqdn\']').try(:text)
+
+      logger.info{ "Trying to clone report_item" }
+      new_report = xml_report_item.dup()
+      logger.info{ "Cloned report item" }
+
+      new_report.[]=("ip", ip)
+      new_report.[]=("fqdn", fqdn)
+      logger.info{ "==>! #{new_report}" }
 
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
@@ -139,7 +143,7 @@ module Dradis::Plugins::Nessus
       port_info += xml_report_item.attributes['port'].value
 
       logger.info{ "\t\t\t => Adding reference to this host" }
-      evidence_content = template_service.process_template(template: 'evidence', data: xml_report_item)
+      evidence_content = template_service.process_template(template: 'evidence', data: new_report)
 
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
 
