@@ -117,16 +117,13 @@ module Dradis::Plugins::Nessus
     #
     def process_report_item(xml_host, host_node, xml_report_item)
       # fetch ip and fqdn from xml_host and add to clone of report_item node
-      logger.info{ "--- #{xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)}" }
       ip = xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)
       fqdn = xml_host.at_xpath('./HostProperties/tag[@name=\'host-fqdn\']').try(:text)
 
-      # clone original b/c I think the original is read-only
+      # clone original b/c I think the original is read-only, and add params
       new_report = xml_report_item.dup()
-
       new_report.[]=("ip", ip)
       new_report.[]=("fqdn", fqdn)
-      logger.info{ "==>! #{new_report}" }
 
       # 3.1. Add Issue to the project
       plugin_id = xml_report_item.attributes['pluginID'].value
@@ -145,7 +142,6 @@ module Dradis::Plugins::Nessus
       evidence_content = template_service.process_template(template: 'evidence', data: new_report)
 
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
-      logger.info{ "-=-=- #{evidence_content}" }
 
       # 3.3. Compliance check information
     end
