@@ -116,14 +116,13 @@ module Dradis::Plugins::Nessus
     # Returns nothing.
     #
     def process_report_item(xml_host, host_node, xml_report_item)
-      # fetch ip and fqdn from host_node and add to clone of report_item node
+      # fetch ip and fqdn from xml_host and add to clone of report_item node
       logger.info{ "--- #{xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)}" }
       ip = xml_host.at_xpath('./HostProperties/tag[@name=\'host-ip\']').try(:text)
       fqdn = xml_host.at_xpath('./HostProperties/tag[@name=\'host-fqdn\']').try(:text)
 
-      logger.info{ "Trying to clone report_item" }
+      # clone original b/c I think the original is read-only
       new_report = xml_report_item.dup()
-      logger.info{ "Cloned report item" }
 
       new_report.[]=("ip", ip)
       new_report.[]=("fqdn", fqdn)
