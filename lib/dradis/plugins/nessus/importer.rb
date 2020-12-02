@@ -122,6 +122,8 @@ module Dradis::Plugins::Nessus
       rdns = xml_host.at_xpath('./HostProperties/tag[@name=\'host-rdns\']').try(:text)
       netbios = xml_host.at_xpath('./HostProperties/tag[@name=\'netbios-name\']').try(:text)
 
+      fqdn = netbios.downcase if fqdn.nil? || fqdn.empty?
+
       # clone original b/c I think the original is read-only, and add params
       new_report = xml_report_item.dup()
       new_report.[]=("ip", ip)
