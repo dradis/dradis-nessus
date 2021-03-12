@@ -18,7 +18,9 @@ report_item.metasploit_name
 report_item.cvss_vector
 report_item.cvss3_vector
 report_item.cvss_temporal_vector
+report_item.cvss3_temporal_vector
 report_item.cvss_temporal_score
+report_item.cvss3_temporal_score
 report_item.cvss_base_score
 report_item.cvss3_base_score
 report_item.synopsis
