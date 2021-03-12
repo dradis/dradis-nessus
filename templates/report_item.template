@@ -7,10 +7,6 @@
 #[CVSSv3Vector]#
 %report_item.cvss3_vector%
 
-#[Temporal]#
-Score: %report_item.cvss3_temporal_score%
-Vector: %report_item.cvss3_temporal_vector%
-
 #[Type]#
 Internal
 
