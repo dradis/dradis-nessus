@@ -19,15 +19,15 @@ module Nessus
     def supported_tags
       [
         # attributes
-        :port, :svc_name, :protocol, :severity, :plugin_id, :plugin_name, :plugin_family,
+        :plugin_family, :plugin_id, :plugin_name, :port, :protocol, :svc_name, :severity, 
         # simple tags
-        :solution, :risk_factor, :description, :plugin_publication_date,
-        :metasploit_name, :cvss_vector, :cvss3_vector, :cvss_temporal_vector, :synopsis,
-        :exploit_available, :patch_publication_date, :plugin_modification_date,
-        :cvss_temporal_score, :cvss_base_score, :cvss3_base_score, :plugin_output,
-        :plugin_version, :exploitability_ease, :vuln_publication_date,
-        :exploit_framework_canvas, :exploit_framework_metasploit,
-        :exploit_framework_core,
+        :cvss3_base_score, :cvss3_temporal_score, :cvss3_temporal_vector, :cvss3_vector,
+        :cvss_base_score, :cvss_temporal_score, :cvss_temporal_vector, :cvss_vector,
+        :description, :exploit_available, :exploit_framework_canvas, :exploit_framework_core,
+        :exploitability_ease, :exploit_framework_metasploit,
+        :metasploit_name, :patch_publication_date, :plugin_modification_date, :plugin_output,
+        :plugin_publication_date, :plugin_version, :risk_factor,
+        :solution, :synopsis, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
         # compliance tags
