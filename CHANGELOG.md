@@ -1,6 +1,7 @@
 ## Dradis Framework 3.22 (April, 2021) ##
 
 *   Add report_item.cvss3_temporal_score & report_item.cvss3_temporal_vector as available fields.
+*   Add report_item.vpr_score as an available field.
 
 ## Dradis Framework 3.21 (February, 2021) ##
 
