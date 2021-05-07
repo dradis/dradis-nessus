@@ -27,7 +27,7 @@ module Nessus
         :exploitability_ease, :exploit_framework_metasploit,
         :metasploit_name, :patch_publication_date, :plugin_modification_date, :plugin_output,
         :plugin_publication_date, :plugin_version, :risk_factor,
-        :solution, :synopsis, :vuln_publication_date,
+        :solution, :synopsis, :vpr_score, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
         # compliance tags
