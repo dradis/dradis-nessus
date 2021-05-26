@@ -7,6 +7,7 @@
   pluginName="Apache Chunked Encoding Remote Overflow"
   pluginFamily="Web Servers">
 
+  <age_of_vuln>730 days +</age_of_vuln>
   <exploitability_ease>Exploits are available</exploitability_ease>
   <vuln_publication_date>2002/06/19</vuln_publication_date>
   <exploit_framework_canvas>true</exploit_framework_canvas>
@@ -29,10 +30,14 @@ If safe checks are enabled, this may be a false positive since it is based on th
   <cvss3_vector>CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N</cvss3_vector>
   <cvss_vector>CVSS2#AV:N/AC:L/Au:N/C:P/I:P/A:P</cvss_vector>
   <synopsis>The remote web server is vulnerable to a remote code execution attack.</synopsis>
+  <threat_intensity_last_28>Very Low</threat_intensity_last_28>
+  <threat_recency>&gt; 365 days</threat_recency>
+  <threat_sources_last_28>No recorded events</threat_sources_last_28>
   <plugin_type>remote</plugin_type>
   <see_also>http://httpd.apache.org/info/security_bulletin_20020617.txt</see_also>
   <see_also>http://httpd.apache.org/info/security_bulletin_20020620.txt</see_also>
   <exploit_available>true</exploit_available>
+  <exploit_code_maturity>Unproven</exploit_code_maturity>
   <plugin_modification_date>2011/03/08</plugin_modification_date>
   <cvss_base_score>7.5</cvss_base_score>
   <vpr_score>6.7</vpr_score>
