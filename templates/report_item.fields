@@ -1,3 +1,4 @@
+report_item.age_of_vuln
 report_item.bid_entries
 report_item.cve_entries
 report_item.cvss3_base_score
@@ -11,6 +12,7 @@ report_item.cvss_vector
 report_item.description
 report_item.exploitability_ease
 report_item.exploit_available
+report_item.exploit_code_maturity
 report_item.exploit_framework_canvas
 report_item.exploit_framework_core
 report_item.exploit_framework_metasploit
@@ -31,6 +33,9 @@ report_item.severity
 report_item.solution
 report_item.svc_name
 report_item.synopsis
+report_item.threat_intensity_last_28
+report_item.threat_recency
+report_item.threat_sources_last_28
 report_item.vpr_score
 report_item.vuln_publication_date
 report_item.xref_entries
