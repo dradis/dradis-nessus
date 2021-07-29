@@ -1,3 +1,7 @@
+## Dradis Framework 4.1 (XXXX, 2021) ##
+
+*   Add product_coverage & cvss3_impact_score as available Issue fields.
+
 ## Dradis Framework 4.00 (XXXX, 2021) ##
 
 *   Add age_of_vuln, exploit_code_maturity, threat_intensity_last_28
