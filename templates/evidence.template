@@ -7,11 +7,8 @@
 #[FQDN]#
 %evidence.fqdn%
 
-#[RDNS]#
-%evidence.rdns%
-
 #[Netbios]#
-%evidence.netbios%
+%evidence.netbios_name%
 
 #[Output]#
 bc.. %evidence.plugin_output%
