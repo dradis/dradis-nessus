@@ -1,4 +1,4 @@
-## Dradis Framework 4.0.1 (XXX, 2021) ##
+## Dradis Framework 4.1.0 (XXX, 2021) ##
 
 *   Add report_host fields to evidence
 
