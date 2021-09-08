@@ -28,6 +28,7 @@ If safe checks are enabled, this may be a false positive since it is based on th
   <cvss3_temporal_score>6.8</cvss3_temporal_score>
   <cvss3_temporal_vector>CVSS:3.0/E:U/RL:O/RC:C</cvss3_temporal_vector>
   <cvss3_vector>CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N</cvss3_vector>
+  <cvssV3_impactScore>5.9</cvssV3_impactScore>
   <cvss_vector>CVSS2#AV:N/AC:L/Au:N/C:P/I:P/A:P</cvss_vector>
   <synopsis>The remote web server is vulnerable to a remote code execution attack.</synopsis>
   <threat_intensity_last_28>Very Low</threat_intensity_last_28>
@@ -41,6 +42,7 @@ If safe checks are enabled, this may be a false positive since it is based on th
   <plugin_modification_date>2011/03/08</plugin_modification_date>
   <cvss_base_score>7.5</cvss_base_score>
   <vpr_score>6.7</vpr_score>
+  <product_coverage>Low</product_coverage>
   <canvas_package>CANVAS</canvas_package>
   <cve>CVE-2002-0392</cve>
   <bid>5033</bid>

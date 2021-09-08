@@ -2,6 +2,7 @@ report_item.age_of_vuln
 report_item.bid_entries
 report_item.cve_entries
 report_item.cvss3_base_score
+report_item.cvss3_impact_score
 report_item.cvss3_temporal_score
 report_item.cvss3_temporal_vector
 report_item.cvss3_vector
@@ -26,6 +27,7 @@ report_item.plugin_output
 report_item.plugin_publication_date
 report_item.plugin_version
 report_item.port
+report_item.product_coverage
 report_item.protocol
 report_item.risk_factor
 report_item.see_also_entries

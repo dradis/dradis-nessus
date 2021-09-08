@@ -22,13 +22,14 @@ module Nessus
         :plugin_family, :plugin_id, :plugin_name, :port, :protocol, :svc_name, :severity, 
         # simple tags
         :age_of_vuln, :cvss3_base_score, :cvss3_temporal_score, :cvss3_temporal_vector, 
-        :cvss3_vector, :cvss_base_score, :cvss_temporal_score, :cvss_temporal_vector, :cvss_vector,
-        :description, :exploit_available, :exploit_code_maturity, :exploit_framework_canvas, 
-        :exploit_framework_core, :exploitability_ease, :exploit_framework_metasploit,
-        :metasploit_name, :patch_publication_date, :plugin_modification_date, :plugin_output,
-        :plugin_publication_date, :plugin_version, :risk_factor, :solution, :synopsis, 
-        :threat_intensity_last_28, :threat_recency, :threat_sources_last_28, :vpr_score, 
-        :vuln_publication_date,
+        :cvss3_vector, :cvss_base_score, :cvss3_impact_score, :cvss_temporal_score, 
+        :cvss_temporal_vector, :cvss_vector, :description, :exploit_available, 
+        :exploit_code_maturity, :exploit_framework_canvas, :exploit_framework_core, 
+        :exploitability_ease, :exploit_framework_metasploit,:metasploit_name, 
+        :patch_publication_date, :plugin_modification_date, :plugin_output, 
+        :plugin_publication_date, :plugin_version, :product_coverage, :risk_factor, 
+        :solution, :synopsis, :threat_intensity_last_28, :threat_recency, 
+        :threat_sources_last_28, :vpr_score, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
         # compliance tags
@@ -69,6 +70,7 @@ module Nessus
         # @svc_name       = xml.attributes["svc_name"]
         # @protocol       = xml.attributes["protocol"]
         # @severity       = xml.attributes["severity"]
+        :cvss3_impact_score => 'cvssV3_impactScore',
         :plugin_id => 'pluginID',
         :plugin_name => 'pluginName',
         :plugin_family  => 'pluginFamily'
