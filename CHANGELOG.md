@@ -1,3 +1,7 @@
+## Dradis Framework 4.1.0 (XXX, 2021) ##
+
+*   Add report_host fields to evidence
+
 ## Dradis Framework 4.0.0 (July, 2021) ##
 
 *   Add age_of_vuln, exploit_code_maturity, threat_intensity_last_28

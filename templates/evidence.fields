@@ -14,4 +14,12 @@ evidence.port
 evidence.protocol
 evidence.svc_name
 evidence.severity
-report_item.plugin_name
+evidence.plugin_name
+evidence.name
+evidence.ip
+evidence.fqdn
+evidence.operating_system
+evidence.mac_address
+evidence.netbios_name
+evidence.scan_start_time
+evidence.scan_stop_time

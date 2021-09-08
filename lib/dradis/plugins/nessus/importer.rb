@@ -130,7 +130,12 @@ module Dradis::Plugins::Nessus
       port_info += xml_report_item.attributes['port'].value
 
       logger.info{ "\t\t\t => Adding reference to this host" }
-      evidence_content = template_service.process_template(template: 'evidence', data: xml_report_item)
+
+      # Remove all ReportItems in the XML but only add the relevant item
+      xml_host_dup = xml_host.dup
+      xml_host_dup.xpath('./ReportItem').remove
+      xml_host_dup.xpath('./HostProperties').after(xml_report_item)
+      evidence_content = template_service.process_template(template: 'evidence', data: xml_host_dup)
 
       content_service.create_evidence(issue: issue, node: host_node, content: evidence_content)
 

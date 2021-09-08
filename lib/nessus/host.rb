@@ -11,6 +11,7 @@ module Nessus
     # Accepts an XML node from Nokogiri::XML.
     def initialize(xml_node)
       @xml = xml_node
+      @report_item = report_items.first
     end
 
     # List of supported tags. They are all desdendents of the ./HostProperties
@@ -35,7 +36,7 @@ module Nessus
     # This allows external callers (and specs) to check for implemented
     # properties
     def respond_to?(method, include_private=false)
-      return true if supported_tags.include?(method.to_sym)
+      return true if supported_tags.include?(method.to_sym) || @report_item.respond_to?(method)
       super
     end
 
@@ -49,7 +50,7 @@ module Nessus
       # The problem would be that it would make tricky to debug problems with
       # typos. For instance: <>.potr would return nil instead of raising an
       # exception
-      unless supported_tags.include?(method)
+      unless supported_tags.include?(method) || @report_item.respond_to?(method)
         super
         return
       end
@@ -59,6 +60,8 @@ module Nessus
       method_name = translations_table.fetch(method, method.to_s)
       return @xml.attributes[method_name].value if @xml.attributes.key?(method_name)
 
+      # return the report_item field if it's a report_item method
+      return @report_item.send(method_name) if @report_item.respond_to?(method_name)
 
       # translation of Host properties
       translations_table = {
