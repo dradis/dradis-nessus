@@ -1,4 +1,4 @@
-[v#.#.#] ([month] [YYYY])
+v4.1.0 (November 2021)
   - Add product_coverage & cvss3_impact_score as available Issue fields
 
 v4.0.0 (July 2021)
