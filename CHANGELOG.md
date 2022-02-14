@@ -1,3 +1,6 @@
+v4.2.0 (February 2022)
+  - No changes
+
 v4.1.0 (November 2021)
   - Add product_coverage & cvss3_impact_score as available Issue fields
 
