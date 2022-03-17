@@ -7,6 +7,10 @@ module Dradis
         include ::Dradis::Plugins::Base
         description 'Processes Nessus XML v2 format (.nessus)'
         provides :upload
+
+        def self.template_names
+          { module_parent => { evidence: 'evidence', issue: 'report_item' } }
+        end
       end
     end
   end
