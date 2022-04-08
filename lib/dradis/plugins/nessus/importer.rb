@@ -1,5 +1,8 @@
 module Dradis::Plugins::Nessus
   class Importer < Dradis::Plugins::Upload::Importer
+    def self.templates
+      { evidence: 'evidence', issue: 'report_item' }
+    end
 
     # The framework will call this function if the user selects this plugin from
     # the dropdown list and uploads a file.
