@@ -1,3 +1,6 @@
+v#.#.# (month YYYY)
+  - Clean up code tags in description fields
+
 v4.6.0 (November 2022)
   - No changes
 

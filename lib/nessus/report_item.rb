@@ -87,7 +87,8 @@ module Nessus
       #   exploit_framework_metasploit, exploit_framework_core
       tag = @xml.xpath("./#{method_name}").first
       if tag
-        return tag.text
+        text = tag.text
+        return tags_with_html_content.include?(method) ? cleanup_html(text) : text
       end
 
       # then the custom XML tags (cm: namespace)
@@ -117,5 +118,18 @@ module Nessus
         return nil
       end
     end
+
+    private
+
+    def cleanup_html(source)
+      result = source.dup
+      result.gsub!(/<code>(.*?)<\/code>/) { "\n\nbc. #{$1}\n\np.  \n" }
+      result
+    end
+
+    def tags_with_html_content
+      [:description]
+    end
+
   end
 end
