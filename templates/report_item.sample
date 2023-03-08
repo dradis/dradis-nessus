@@ -23,6 +23,7 @@ If safe checks are enabled, this may be a false positive since it is based on th
 1.2.2 and above, 1.3 through 1.3.24, and 2.0 through 2.0.36 are affected, the remote server may be running a patched version of Apache.</description>
 
   <plugin_publication_date>2002/06/17</plugin_publication_date>
+  <plugin_type>remote</plugin_type>
   <metasploit_name>Apache Win32 Chunked Encoding</metasploit_name>
   <cvss3_base_score>3.7</cvss3_base_score>
   <cvss3_temporal_score>6.8</cvss3_temporal_score>
