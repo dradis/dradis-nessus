@@ -1,5 +1,6 @@
 v4.7.0 (February 2023)
   - Clean up code tags in description fields
+  - Parse `**` correctly in the description field
 
 v4.6.0 (November 2022)
   - No changes
