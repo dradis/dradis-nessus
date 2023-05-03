@@ -124,6 +124,7 @@ module Nessus
     def cleanup_html(source)
       result = source.dup
       result.gsub!(/<code>(.*?)<\/code>/) { "\n\nbc. #{$1}\n\np.  \n" }
+      result.gsub!(/^\s*\*\*/, "\np. **")
       result
     end
 
