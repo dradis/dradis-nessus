@@ -1,6 +1,9 @@
 v4.X.X (XXXX 2023)
   - Add plugin_type as an available Issue field
 
+v4.8.0 (April 2023)
+  - No changes
+
 v4.7.0 (February 2023)
   - Clean up code tags in description fields
 
