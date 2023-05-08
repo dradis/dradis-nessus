@@ -25,6 +25,7 @@ report_item.plugin_modification_date
 report_item.plugin_name
 report_item.plugin_output
 report_item.plugin_publication_date
+report_item.plugin_type
 report_item.plugin_version
 report_item.port
 report_item.product_coverage
