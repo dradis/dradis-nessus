@@ -1,6 +1,7 @@
 v4.X.X (XXXX 2023)
   - Parse code tags as inline code
   - Add plugin_type as an available Issue field
+  - Add cve_entries as an available Evidence field
 
 v4.8.0 (April 2023)
   - No changes
