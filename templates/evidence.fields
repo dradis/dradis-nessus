@@ -14,5 +14,5 @@ evidence.port
 evidence.protocol
 evidence.svc_name
 evidence.severity
-report_item.plugin_name
 report_item.cve_entries
+report_item.plugin_name
