@@ -1,4 +1,4 @@
-v4.9.0 (May 2023)
+v4.9.0 (June 2023)
   - Parse code tags as inline code
   - Add plugin_type as an available Issue field
 
