@@ -4,7 +4,7 @@
 #[CVSSv3.BaseScore]#
 %report_item.cvss3_base_score%
 
-#[CVSSv3Vector]#
+#[CVSSv3.Vector]#
 %report_item.cvss3_vector%
 
 #[Type]#

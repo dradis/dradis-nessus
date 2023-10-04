@@ -39,6 +39,6 @@ report_item.synopsis
 report_item.threat_intensity_last_28
 report_item.threat_recency
 report_item.threat_sources_last_28
-report_item.vpr_score
+report_item.vulnerability_priority_rating
 report_item.vuln_publication_date
 report_item.xref_entries

@@ -29,7 +29,7 @@ module Nessus
         :patch_publication_date, :plugin_modification_date, :plugin_output, 
         :plugin_publication_date, :plugin_type, :plugin_version, :product_coverage, 
         :risk_factor, :solution, :synopsis, :threat_intensity_last_28, :threat_recency, 
-        :threat_sources_last_28, :vpr_score, :vuln_publication_date,
+        :threat_sources_last_28, :vulnerability_priority_rating, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
         # compliance tags

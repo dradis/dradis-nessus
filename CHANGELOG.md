@@ -1,3 +1,6 @@
+v#.#.# (XXX 2023)
+  - Change vpr_score to vulnerability_priority_rating to keep up with Nessus XML changes
+
 v4.10.0 (September 2023)
   - Update gemspec links
 
