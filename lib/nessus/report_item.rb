@@ -29,7 +29,7 @@ module Nessus
         :patch_publication_date, :plugin_modification_date, :plugin_output, 
         :plugin_publication_date, :plugin_type, :plugin_version, :product_coverage, 
         :risk_factor, :solution, :synopsis, :threat_intensity_last_28, :threat_recency, 
-        :threat_sources_last_28, :vulnerability_priority_rating, :vuln_publication_date,
+        :threat_sources_last_28, :vpr_score, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
         # compliance tags
@@ -62,6 +62,8 @@ module Nessus
         super
         return
       end
+
+      puts "#{@xml.xpath("./vulnerability_priority_rating")}"
 
       # first we try the attributes: port, svc_name, protocol, severity,
       #   plugin_id, plugin_name, plugin_family
@@ -97,6 +99,23 @@ module Nessus
         cm_value = @xml.at_xpath("./#{method_name}", { 'cm' => 'http://www.nessus.org/cm' })
         if cm_value
           return cm_value.text
+        else
+          return nil
+        end
+      end
+
+      # older versions of Nessus use <vpr_score> while newer versions of Nessus 
+      #   use <vulnerability_priority_rating>. This allows either tag to be 
+      #   pulled in to the vpr_score mapping
+      if method_name.starts_with?('vpr')
+        if @xml.xpath("./vulnerability_priority_rating").nil?
+          vpr_value = @xml.xpath("./vpr_score")
+        else
+          vpr_value = @xml.xpath("./vulnerability_priority_rating")
+        end
+
+        if vpr_value
+          return vpr_value.text
         else
           return nil
         end
