@@ -8,17 +8,16 @@ The parser only supports version 2 of nessus xml format. Other formats (nbe, nsr
 
 Also, the xml parser only extracts the results of a scan. It is not able to parse the scan policy itself which is also part of the xml file.
 
-The add-on requires Dradis 3.0 or higher.
-
+The add-on requires [Dradis CE](https://dradis.com/ce/) > 3.0, or [Dradis Pro](https://dradis.com/).
 
 ## More information
 
-See the Dradis Framework's [README.md](https://github.com/dradis/dradisframework/blob/master/README.md)
+See the Dradis Framework's [README.md](https://github.com/dradis/dradis-ce/blob/develop/README.md)
 
 
 ## Contributing
 
-See the Dradis Framework's [CONTRIBUTING.md](https://github.com/dradis/dradisframework/blob/master/CONTRIBUTING.md)
+See the Dradis Framework's [CONTRIBUTING.md](https://github.com/dradis/dradis-ce/blob/develop/CONTRIBUTING.md)
 
 
 ## License
