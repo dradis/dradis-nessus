@@ -63,8 +63,6 @@ module Nessus
         return
       end
 
-      puts "#{@xml.xpath("./vulnerability_priority_rating")}"
-
       # first we try the attributes: port, svc_name, protocol, severity,
       #   plugin_id, plugin_name, plugin_family
       translations_table = {
@@ -110,7 +108,6 @@ module Nessus
       if method_name == 'vpr_score'
         return @xml.at_xpath('./vulnerability_priority_rating')&.text || @xml.at_xpath('./vpr_score')&.text
       end
-
 
       # finally the enumerations: bid_entries, cve_entries, xref_entries
       translations_table = {
