@@ -1,5 +1,6 @@
 v4.12.0 (XXXX 2024)
   - Update Dradis links in README
+  - Support the new vulnerability_priority_rating tag
 
 v4.11.0 (January 2024)
   - No changes
