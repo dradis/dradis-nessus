@@ -7,14 +7,8 @@ module Dradis::Plugins::Nessus
       },
       report_host: {
         'Title' => 'Nessus host summary',
-        'Host information' => "Name: {{ nessus[report_host.name] }}\n
-                              IP address: {{ nessus[report_host.ip] }}\n
-                              FQDN: {{ nessus[report_host.fqdn] }}\n
-                              OS: {{ nessus[report_host.operating_system] }}\n
-                              Mac address: {{ nessus[report_host.mac_address] }}\n
-                              Netbios name: {{ nessus[report_host.netbios_name] }}",
-        'Scan information' => "Scan started: {{ nessus[report_host.scan_start_time] }}\n
-                              Scan ended: {{ nessus[report_host.scan_stop_time] }}"
+        'Host information' => "Name: {{ nessus[report_host.name] }}\nIP address: {{ nessus[report_host.ip] }}\nFQDN: {{ nessus[report_host.fqdn] }}\nOS: {{ nessus[report_host.operating_system] }}\nMac address: {{ nessus[report_host.mac_address] }}\nNetbios name: {{ nessus[report_host.netbios_name] }}",
+        'Scan information' => "Scan started: {{ nessus[report_host.scan_start_time] }}\nScan ended: {{ nessus[report_host.scan_stop_time] }}"
       },
       report_item: {
         'Title' => '{{ nessus[report_item.plugin_name] }}',
