@@ -55,6 +55,7 @@ module Dradis::Plugins::Nessus
         'report_item.age_of_vuln',
         'report_item.bid_entries',
         'report_item.cve_entries',
+        'report_item.cwe_entries',
         'report_item.cvss3_base_score',
         'report_item.cvss3_impact_score',
         'report_item.cvss3_temporal_score',

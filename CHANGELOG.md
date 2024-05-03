@@ -1,4 +1,7 @@
-v4.12.0 (Mmmm 2024)
+v4.13.0 (Mmmm 2024)
+ - Add `cwe_entries` as an available Issue field
+
+v4.12.0 (May 2024)
  - Migrate integration to use Mappings Manager
  - Update Dradis links in README
 
