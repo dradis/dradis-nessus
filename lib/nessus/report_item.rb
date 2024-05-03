@@ -31,7 +31,7 @@ module Nessus
         :risk_factor, :solution, :synopsis, :threat_intensity_last_28, :threat_recency, 
         :threat_sources_last_28, :vpr_score, :vuln_publication_date,
         # multiple tags
-        :bid_entries, :cve_entries, :see_also_entries, :xref_entries,
+        :bid_entries, :cve_entries, :cwe_entries, :see_also_entries, :xref_entries,
         # compliance tags
         :cm_actual_value, :cm_audit_file, :cm_check_id, :cm_check_name, :cm_info,
         :cm_output, :cm_policy_value, :cm_reference, :cm_result, :cm_see_also,
@@ -107,6 +107,7 @@ module Nessus
       translations_table = {
         :bid_entries => 'bid',
         :cve_entries => 'cve',
+        :cwe_entries => 'cwe',
         :see_also_entries => 'see_also',
         :xref_entries  => 'xref'
       }
