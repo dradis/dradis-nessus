@@ -13,7 +13,7 @@ module Dradis::Plugins::Nessus
       report_item: {
         'Title' => '{{ nessus[report_item.plugin_name] }}',
         'CVSSv3.BaseScore' => '{{ nessus[report_item.cvss3_base_score] }}',
-        'CVSSv3Vector' => '{{ nessus[report_item.cvss3_vector] }}',
+        'CVSSv3.Vector' => '{{ nessus[report_item.cvss3_vector] }}',
         'Type' => 'Internal',
         'Description' => '{{ nessus[report_item.description] }}',
         'Solution' => '{{ nessus[report_item.solution] }}',
