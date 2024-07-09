@@ -2,13 +2,10 @@ require 'spec_helper'
 require 'ostruct'
 
 describe Dradis::Plugins::Nessus::Importer do
-
   before(:each) do
-    # Stub template service
-    templates_dir = File.expand_path('../../../../../templates', __FILE__)
-    expect_any_instance_of(Dradis::Plugins::TemplateService)
-    .to receive(:default_templates_dir).and_return(templates_dir)
-
+    mapping_service = double('Dradis::Plugins::MappingService')
+    allow(mapping_service).to receive(:apply_mapping).and_return('')
+    allow(Dradis::Plugins::MappingService).to receive(:new).and_return(mapping_service)
 
     # Init services
     plugin = Dradis::Plugins::Nessus
