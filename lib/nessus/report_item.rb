@@ -102,6 +102,12 @@ module Nessus
         end
       end
 
+      # older versions of Nessus use <vpr_score> while newer versions of Nessus 
+      #   use <vulnerability_priority_rating>. This allows either tag to be 
+      #   pulled in to the vpr_score mapping
+      if method_name == 'vpr_score'
+        return @xml.at_xpath('./vulnerability_priority_rating | ./vpr_score')&.text
+      end
 
       # finally the enumerations: bid_entries, cve_entries, xref_entries
       translations_table = {
