@@ -1,5 +1,6 @@
-v4.13.0 (XXXX 2024)
-  - Support the new vulnerability_priority_rating tag
+v4.13.0 (Mmmm 2024)
+ - Add `cwe_entries` as an available Issue field
+ - Add `vulnerability_priority_rating` as an available Issue field
 
 v4.12.0 (May 2024)
  - Migrate integration to use Mappings Manager
