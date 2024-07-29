@@ -1,4 +1,4 @@
-v4.13.0 (Mmmm 2024)
+v4.13.0 (July 2024)
  - Add `cwe_entries` as an available Issue field
  - Add `vulnerability_priority_rating` as an available Issue field
 
