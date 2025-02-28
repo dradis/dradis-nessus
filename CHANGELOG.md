@@ -1,3 +1,6 @@
+v#.#.# (MMMM YYYY)
+- Give a value of n/a even when entries have blank tags
+
 v4.15.0 (December 2024)
   - No changes
 
