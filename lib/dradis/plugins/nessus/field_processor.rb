@@ -16,12 +16,14 @@ module Dradis
           _, name = field.split('.')
 
           if name.end_with?('entries')
-            # report_item.bid_entries
-            # report_item.cve_entries
-            # report_item.xref_entries
+            # bid_entries, cve_entries, cwe_entries, see_also_entries, xref_entries,
             entries = @nessus_object.try(name)
             if entries.any?
-              entries.to_a.join("\n")
+              if entries.to_a.join("\n").blank?
+                'n/a'
+              else
+                entries.to_a.join("\n")
+              end
             else
               'n/a'
             end
