@@ -4,6 +4,9 @@ class NessusTasks < Thor
   namespace "dradis:plugins:nessus"
 
   desc "upload FILE", "upload Nessus v2 results (.nessus file)"
+  method_option :state,
+    type: :string,
+    desc: 'The state your issues will be created with. If not provided, the scope will be draft'
   def upload(file_path)
     require 'config/environment'
 
@@ -17,5 +20,4 @@ class NessusTasks < Thor
     importer = Dradis::Plugins::Nessus::Importer.new(task_options)
     importer.import(file: file_path)
   end
-
 end
