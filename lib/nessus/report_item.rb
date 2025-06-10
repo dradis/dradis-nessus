@@ -19,16 +19,16 @@ module Nessus
     def supported_tags
       [
         # attributes
-        :plugin_family, :plugin_id, :plugin_name, :port, :protocol, :svc_name, :severity, 
+        :plugin_family, :plugin_id, :plugin_name, :port, :protocol, :svc_name, :severity,
         # simple tags
-        :age_of_vuln, :cvss3_base_score, :cvss3_temporal_score, :cvss3_temporal_vector, 
-        :cvss3_vector, :cvss_base_score, :cvss3_impact_score, :cvss_temporal_score, 
-        :cvss_temporal_vector, :cvss_vector, :description, :exploit_available, 
-        :exploit_code_maturity, :exploit_framework_canvas, :exploit_framework_core, 
-        :exploitability_ease, :exploit_framework_metasploit,:metasploit_name, 
-        :patch_publication_date, :plugin_modification_date, :plugin_output, 
-        :plugin_publication_date, :plugin_type, :plugin_version, :product_coverage, 
-        :risk_factor, :solution, :synopsis, :threat_intensity_last_28, :threat_recency, 
+        :age_of_vuln, :cvss3_base_score, :cvss3_temporal_score, :cvss3_temporal_vector,
+        :cvss3_vector, :cvss_base_score, :cvss3_impact_score, :cvss_temporal_score,
+        :cvss_temporal_vector, :cvss_vector, :description, :exploit_available,
+        :exploit_code_maturity, :exploit_framework_canvas, :exploit_framework_core,
+        :exploitability_ease, :exploit_framework_metasploit,:metasploit_name,
+        :patch_publication_date, :plugin_modification_date, :plugin_output,
+        :plugin_publication_date, :plugin_type, :plugin_version, :product_coverage,
+        :risk_factor, :solution, :synopsis, :threat_intensity_last_28, :threat_recency,
         :threat_sources_last_28, :vpr_score, :vuln_publication_date,
         # multiple tags
         :bid_entries, :cve_entries, :cwe_entries, :see_also_entries, :xref_entries,
@@ -53,7 +53,7 @@ module Nessus
     # attribute, simple descendent or collection that it maps to in the XML
     # tree.
     def method_missing(method, *args)
-      
+
       # We could remove this check and return nil for any non-recognized tag.
       # The problem would be that it would make tricky to debug problems with
       # typos. For instance: <>.potr would return nil instead of raising an
@@ -102,8 +102,8 @@ module Nessus
         end
       end
 
-      # older versions of Nessus use <vpr_score> while newer versions of Nessus 
-      #   use <vulnerability_priority_rating>. This allows either tag to be 
+      # older versions of Nessus use <vpr_score> while newer versions of Nessus
+      #   use <vulnerability_priority_rating>. This allows either tag to be
       #   pulled in to the vpr_score mapping
       if method_name == 'vpr_score'
         return @xml.at_xpath('./vulnerability_priority_rating | ./vpr_score')&.text
@@ -119,7 +119,7 @@ module Nessus
       }
       method_name = translations_table.fetch(method, nil)
       if method_name
-        @xml.xpath("./#{method_name}").collect(&:text)
+        @xml.xpath("./#{method_name}").collect(&:text).reject(&:empty?)
       else
         # nothing found, the tag is valid but not present in this ReportItem
         return nil

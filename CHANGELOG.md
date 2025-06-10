@@ -1,5 +1,5 @@
 v#.#.# (MMMM YYYY)
-- Give a value of n/a even when entries have blank tags
+- Ignore entries that have blank values
 
 v4.16.0 (May 2025)
   - No changes
