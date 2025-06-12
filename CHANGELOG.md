@@ -1,3 +1,6 @@
+v#.#.# (MMMM YYYY)
+- Ignore entries that have blank values
+
 v4.16.0 (May 2025)
   - No changes
 
