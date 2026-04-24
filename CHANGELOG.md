@@ -1,3 +1,6 @@
+v5.1.0 (unreleased)
+  - Nessus: register upload detectors so the Upload Manager can auto-select the correct report type
+
 v5.0.0 (March 2026)
   - No changes
 
